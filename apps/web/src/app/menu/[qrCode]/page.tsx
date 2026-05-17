@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { fetchMenu, placeOrder } from "@/lib/api";
 import type { MenuResponse, Product, CartItem } from "@/types";
 
 export default function MenuPage({ params }: { params: Promise<{ qrCode: string }> }) {
-  const [qrCode, setQrCode] = useState("");
+  const { qrCode } = use(params);
   const [menu, setMenu] = useState<MenuResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -16,12 +16,7 @@ export default function MenuPage({ params }: { params: Promise<{ qrCode: string 
   const [ordered, setOrdered] = useState(false);
   const [notes, setNotes] = useState("");
 
-  useEffect(() => {
-    params.then((p) => setQrCode(p.qrCode));
-  }, [params]);
-
   const load = useCallback(async () => {
-    if (!qrCode) return;
     try {
       const data = await fetchMenu(qrCode);
       setMenu(data);
@@ -34,6 +29,8 @@ export default function MenuPage({ params }: { params: Promise<{ qrCode: string 
   }, [qrCode]);
 
   useEffect(() => { load(); }, [load]);
+
+
 
   const addToCart = (product: Product) => {
     setCart((prev) => {

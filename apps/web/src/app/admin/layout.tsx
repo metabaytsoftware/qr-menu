@@ -31,7 +31,7 @@ export default function AdminLayout({
       return;
     }
     const stored = localStorage.getItem("venueId");
-    if (!stored || stored === "night-city-gaming") {
+    if (!stored || stored.length <= 10) {
       localStorage.removeItem("venueId");
       fetch("/api/venues")
         .then((r) => r.json())
@@ -43,6 +43,7 @@ export default function AdminLayout({
         .catch(() => {});
     }
   }, []);
+
 
   return (
     <AdminAuthGuard>

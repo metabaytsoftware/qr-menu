@@ -22,6 +22,18 @@ export class VenuesService {
     return venue;
   }
 
+  async update(id: string, data: { name?: string; slug?: string }) {
+    await this.findOne(id);
+    return this.prisma.venue.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.slug !== undefined && { slug: data.slug }),
+      },
+      select: { id: true, name: true, slug: true, type: true, config: true },
+    });
+  }
+
   async updateConfig(id: string, config: Record<string, unknown>) {
     const venue = await this.findOne(id);
     const merged = { ...(venue.config as Record<string, unknown> ?? {}), ...config };
@@ -32,3 +44,4 @@ export class VenuesService {
     });
   }
 }
+

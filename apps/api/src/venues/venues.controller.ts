@@ -15,6 +15,11 @@ export class VenuesController {
     return this.venuesService.findOne(id);
   }
 
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body: { name?: string; slug?: string }) {
+    return this.venuesService.update(id, body);
+  }
+
   @Patch(':id/config')
   updateConfig(@Param('id') id: string, @Body() body: Record<string, unknown>) {
     return this.venuesService.updateConfig(id, body);

@@ -25,6 +25,10 @@ export default function StationsPage() {
   const [editingType, setEditingType] = useState<StationType | null>(null);
   const [typeForm, setTypeForm] = useState({ label: "", icon: "" });
   const [savingType, setSavingType] = useState(false);
+  const [showNewTypeForm, setShowNewTypeForm] = useState(false);
+  const [newTypeForm, setNewTypeForm] = useState({ label: "", icon: "📍" });
+  const [savingNewType, setSavingNewType] = useState(false);
+  const [customTypes, setCustomTypes] = useState<{ id: string; label: string; icon: string }[]>([]);
 
   const typeIcon = (t: StationType) => stationTypes.find((s) => s.value === t)?.icon ?? "📍";
   const typeLabel = (t: StationType) => stationTypes.find((s) => s.value === t)?.label ?? t;
@@ -37,6 +41,7 @@ export default function StationsPage() {
     name: "",
     stationType: "TABLE" as StationType,
     hourlyRate: "",
+    customTypeId: "",
   });
   const [selectedQr, setSelectedQr] = useState<Station | null>(null);
   const [isRegenerating, setIsRegenerating] = useState(false);
@@ -45,7 +50,8 @@ export default function StationsPage() {
 
   useEffect(() => {
     const stored = localStorage.getItem("venueId") ?? "";
-    if (stored && stored !== "night-city-gaming") {
+    // Accept any non-empty stored venueId (cuid format, not the legacy hardcoded value)
+    if (stored && stored.length > 10) {
       setVenueId(stored);
       return;
     }
@@ -73,7 +79,7 @@ export default function StationsPage() {
 
   useEffect(() => { void load(); }, [load]);
 
-  // Load station type labels from venue config
+  // Load station type labels and custom types from venue config
   useEffect(() => {
     if (!venueId) return;
     fetch(`/api/venues/${venueId}`)
@@ -87,6 +93,8 @@ export default function StationsPage() {
             icon: labels[t.value]?.icon ?? t.icon,
           })));
         }
+        const custom = venue?.config?.customStationTypes as { id: string; label: string; icon: string }[] | undefined;
+        if (custom) setCustomTypes(custom);
       })
       .catch(() => {});
   }, [venueId]);
@@ -111,18 +119,56 @@ export default function StationsPage() {
     }
   };
 
+  const saveNewCustomType = async () => {
+    if (!newTypeForm.label.trim() || !venueId) return;
+    setSavingNewType(true);
+    try {
+      const newEntry = { id: `custom_${Date.now()}`, label: newTypeForm.label.trim(), icon: newTypeForm.icon || "📍" };
+      const updated = [...customTypes, newEntry];
+      await fetch(`/api/venues/${venueId}/config`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customStationTypes: updated }),
+      });
+      setCustomTypes(updated);
+      setNewTypeForm({ label: "", icon: "📍" });
+      setShowNewTypeForm(false);
+    } catch {
+      alert("Kaydedilemedi.");
+    } finally {
+      setSavingNewType(false);
+    }
+  };
+
+  const deleteCustomType = async (id: string) => {
+    if (!confirm("Bu özel türü silmek istediğinize emin misiniz?")) return;
+    const updated = customTypes.filter((t) => t.id !== id);
+    try {
+      await fetch(`/api/venues/${venueId}/config`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customStationTypes: updated }),
+      });
+      setCustomTypes(updated);
+    } catch {
+      alert("Silinemedi.");
+    }
+  };
+
   const resetForm = () => {
-    setForm({ name: "", stationType: "TABLE", hourlyRate: "" });
+    setForm({ name: "", stationType: "TABLE", hourlyRate: "", customTypeId: "" });
     setEditingId(null);
     setShowForm(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // If a custom type is selected, use OTHER as the DB enum value
+    const effectiveType = form.customTypeId ? "OTHER" as StationType : form.stationType;
     const payload = {
       venueId,
       name: form.name,
-      stationType: form.stationType,
+      stationType: effectiveType,
       hourlyRate: form.hourlyRate ? parseFloat(form.hourlyRate) : undefined,
     };
     try {
@@ -143,6 +189,7 @@ export default function StationsPage() {
       name: s.name,
       stationType: s.stationType,
       hourlyRate: s.hourlyRate ? String(s.hourlyRate) : "",
+      customTypeId: "",
     });
     setEditingId(s.id);
     setShowForm(true);
@@ -223,45 +270,109 @@ export default function StationsPage() {
 
         {/* Station types tab */}
         {activeTab === "types" && (
-          <div className="bg-zinc-900/70 border border-white/10 rounded-2xl p-6 space-y-3">
-            <p className="text-sm text-zinc-400 mb-4">İstasyon türlerinin admin ve menüde görünen ad ve ikonunu özelleştirin.</p>
-            {stationTypes.map((t) => (
-              <div key={t.value} className="flex items-center gap-4 bg-zinc-800/50 rounded-xl p-4">
-                {editingType === t.value ? (
-                  <>
-                    <input
-                      value={typeForm.icon}
-                      onChange={(e) => setTypeForm((f) => ({ ...f, icon: e.target.value }))}
-                      className="w-14 bg-zinc-700 border border-white/10 rounded-lg px-2 py-1.5 text-center text-lg focus:outline-none focus:border-blue-500"
-                      placeholder="🎮"
-                    />
-                    <input
-                      value={typeForm.label}
-                      onChange={(e) => setTypeForm((f) => ({ ...f, label: e.target.value }))}
-                      className="flex-1 bg-zinc-700 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-blue-500"
-                    />
-                    <button onClick={saveTypeLabel} disabled={savingType} className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold disabled:opacity-50">
-                      {savingType ? "..." : "Kaydet"}
-                    </button>
-                    <button onClick={() => setEditingType(null)} className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-bold">İptal</button>
-                  </>
-                ) : (
-                  <>
-                    <span className="text-2xl w-10 text-center">{t.icon}</span>
-                    <div className="flex-1">
-                      <p className="font-bold text-sm">{t.label}</p>
-                      <p className="text-xs text-zinc-500 font-mono">{t.value}</p>
-                    </div>
-                    <button
-                      onClick={() => { setEditingType(t.value); setTypeForm({ label: t.label, icon: t.icon }); }}
-                      className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-xs font-bold"
-                    >
-                      Düzenle
-                    </button>
-                  </>
+          <div className="space-y-4">
+            <div className="bg-zinc-900/70 border border-white/10 rounded-2xl p-6 space-y-3">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-bold text-zinc-300">Sistem Türleri</p>
+                <p className="text-xs text-zinc-500">Görünen ad ve ikonu özelleştirin</p>
+              </div>
+              {stationTypes.map((t) => (
+                <div key={t.value} className="flex items-center gap-4 bg-zinc-800/50 rounded-xl p-4">
+                  {editingType === t.value ? (
+                    <>
+                      <input
+                        value={typeForm.icon}
+                        onChange={(e) => setTypeForm((f) => ({ ...f, icon: e.target.value }))}
+                        className="w-14 bg-zinc-700 border border-white/10 rounded-lg px-2 py-1.5 text-center text-lg focus:outline-none focus:border-blue-500"
+                        placeholder="🎮"
+                      />
+                      <input
+                        value={typeForm.label}
+                        onChange={(e) => setTypeForm((f) => ({ ...f, label: e.target.value }))}
+                        className="flex-1 bg-zinc-700 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-blue-500"
+                      />
+                      <button onClick={saveTypeLabel} disabled={savingType} className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold disabled:opacity-50">
+                        {savingType ? "..." : "Kaydet"}
+                      </button>
+                      <button onClick={() => setEditingType(null)} className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-bold">İptal</button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-2xl w-10 text-center">{t.icon}</span>
+                      <div className="flex-1">
+                        <p className="font-bold text-sm">{t.label}</p>
+                        <p className="text-xs text-zinc-500 font-mono">{t.value}</p>
+                      </div>
+                      <button
+                        onClick={() => { setEditingType(t.value); setTypeForm({ label: t.label, icon: t.icon }); }}
+                        className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-xs font-bold"
+                      >
+                        Düzenle
+                      </button>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Custom types section */}
+            <div className="bg-zinc-900/70 border border-white/10 rounded-2xl p-6 space-y-3">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <p className="text-sm font-bold text-zinc-300">Özel Türler</p>
+                  <p className="text-xs text-zinc-500 mt-0.5">İstasyon oluştururken seçilebilir özel kategoriler</p>
+                </div>
+                {!showNewTypeForm && (
+                  <button
+                    onClick={() => setShowNewTypeForm(true)}
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold transition-all"
+                  >
+                    + Yeni Tür Ekle
+                  </button>
                 )}
               </div>
-            ))}
+
+              {showNewTypeForm && (
+                <div className="flex items-center gap-3 bg-blue-600/10 border border-blue-500/20 rounded-xl p-4">
+                  <input
+                    value={newTypeForm.icon}
+                    onChange={(e) => setNewTypeForm((f) => ({ ...f, icon: e.target.value }))}
+                    className="w-14 bg-zinc-700 border border-white/10 rounded-lg px-2 py-1.5 text-center text-lg focus:outline-none focus:border-blue-500"
+                    placeholder="📍"
+                  />
+                  <input
+                    value={newTypeForm.label}
+                    onChange={(e) => setNewTypeForm((f) => ({ ...f, label: e.target.value }))}
+                    placeholder="Tür adı (örn: VR Odası, Bilardo)"
+                    className="flex-1 bg-zinc-700 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-blue-500"
+                  />
+                  <button onClick={saveNewCustomType} disabled={savingNewType || !newTypeForm.label.trim()} className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold disabled:opacity-50">
+                    {savingNewType ? "..." : "Ekle"}
+                  </button>
+                  <button onClick={() => { setShowNewTypeForm(false); setNewTypeForm({ label: "", icon: "📍" }); }} className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-bold">İptal</button>
+                </div>
+              )}
+
+              {customTypes.length === 0 && !showNewTypeForm && (
+                <div className="text-center py-6 text-zinc-600 text-sm">Henüz özel tür yok. &quot;+ Yeni Tür Ekle&quot; ile başlayın.</div>
+              )}
+
+              {customTypes.map((t) => (
+                <div key={t.id} className="flex items-center gap-4 bg-zinc-800/50 rounded-xl p-4">
+                  <span className="text-2xl w-10 text-center">{t.icon}</span>
+                  <div className="flex-1">
+                    <p className="font-bold text-sm">{t.label}</p>
+                    <p className="text-xs text-zinc-500 font-mono">{t.id}</p>
+                  </div>
+                  <button
+                    onClick={() => deleteCustomType(t.id)}
+                    className="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg text-xs font-bold"
+                  >
+                    🗑 Sil
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -286,13 +397,27 @@ export default function StationsPage() {
                 <label className="block text-xs text-zinc-400 mb-1">Tür</label>
                 <select
                   id="station-type-select"
-                  value={form.stationType}
-                  onChange={(e) => setForm((f) => ({ ...f, stationType: e.target.value as StationType }))}
+                  value={form.customTypeId ? `custom:${form.customTypeId}` : form.stationType}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val.startsWith("custom:")) {
+                      setForm((f) => ({ ...f, customTypeId: val.replace("custom:", ""), stationType: "OTHER" as StationType }));
+                    } else {
+                      setForm((f) => ({ ...f, stationType: val as StationType, customTypeId: "" }));
+                    }
+                  }}
                   className="w-full bg-zinc-800 border border-white/10 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500"
                 >
                   {STATION_TYPES.map((t) => (
                     <option key={t.value} value={t.value}>{t.icon} {t.label}</option>
                   ))}
+                  {customTypes.length > 0 && (
+                    <optgroup label="Özel Türler">
+                      {customTypes.map((t) => (
+                        <option key={t.id} value={`custom:${t.id}`}>{t.icon} {t.label}</option>
+                      ))}
+                    </optgroup>
+                  )}
                 </select>
               </div>
               <div>
