@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function SettingsPage() {
-  const [venueName, setVenueName] = useState("Night City Cafe");
+  const [venueName, setVenueName] = useState("Nova Game Center");
 
   return (
     <div className="max-w-4xl space-y-8 animate-fade-in">

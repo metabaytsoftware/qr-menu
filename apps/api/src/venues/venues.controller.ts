@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
 import { VenuesService } from './venues.service';
 
 @Controller('venues')
@@ -8,5 +8,15 @@ export class VenuesController {
   @Get()
   findAll() {
     return this.venuesService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.venuesService.findOne(id);
+  }
+
+  @Patch(':id/config')
+  updateConfig(@Param('id') id: string, @Body() body: Record<string, unknown>) {
+    return this.venuesService.updateConfig(id, body);
   }
 }

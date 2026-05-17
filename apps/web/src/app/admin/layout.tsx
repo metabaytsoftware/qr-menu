@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AdminAuthGuard } from "@/components/AdminAuthGuard";
 import { useCloudflareAuth } from "@/lib/useCloudflareAuth";
 
@@ -11,6 +11,17 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const { user } = useCloudflareAuth();
+  const [apiOnline, setApiOnline] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const check = () =>
+      fetch("/api/health", { cache: "no-store" })
+        .then((r) => setApiOnline(r.ok))
+        .catch(() => setApiOnline(false));
+    check();
+    const id = setInterval(check, 30000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -101,15 +112,15 @@ export default function AdminLayout({
         {/* Main Content */}
         <main className="flex-1 flex flex-col h-screen overflow-hidden">
           <header className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-zinc-950/50 backdrop-blur-md no-print print:hidden relative z-20">
-            <h2 className="text-lg font-bold">Night City Overview</h2>
+            <h2 className="text-lg font-bold">Nova Game Center</h2>
             <div className="flex items-center gap-4">
               <button className="p-2 text-zinc-400 hover:text-white transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
               </button>
               <div className="h-6 w-[1px] bg-white/10" />
-              <span className="text-sm font-medium text-green-500 flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                Live System
+              <span className={`text-sm font-medium flex items-center gap-2 ${apiOnline === false ? "text-red-400" : "text-green-500"}`}>
+                <span className={`w-2 h-2 rounded-full ${apiOnline === false ? "bg-red-400" : "bg-green-500 animate-pulse"}`} />
+                {apiOnline === false ? "API Çevrimdışı" : apiOnline === null ? "Bağlanıyor..." : "Sistem Aktif"}
               </span>
             </div>
           </header>

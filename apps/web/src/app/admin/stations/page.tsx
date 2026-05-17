@@ -11,7 +11,7 @@ import {
 import type { Station, StationType } from "@/types";
 import { QRCodeSVG } from "qrcode.react";
 
-const STATION_TYPES: { value: StationType; label: string; icon: string }[] = [
+const DEFAULT_TYPES: { value: StationType; label: string; icon: string }[] = [
   { value: "PLAYSTATION", label: "PlayStation", icon: "🎮" },
   { value: "TABLE", label: "Masa", icon: "🪑" },
   { value: "BAR", label: "Bar", icon: "🍺" },
@@ -19,10 +19,16 @@ const STATION_TYPES: { value: StationType; label: string; icon: string }[] = [
   { value: "OTHER", label: "Diğer", icon: "📍" },
 ];
 
-const typeIcon = (t: StationType) => STATION_TYPES.find((s) => s.value === t)?.icon ?? "📍";
-const typeLabel = (t: StationType) => STATION_TYPES.find((s) => s.value === t)?.label ?? t;
-
 export default function StationsPage() {
+  const [activeTab, setActiveTab] = useState<"stations" | "types">("stations");
+  const [stationTypes, setStationTypes] = useState(DEFAULT_TYPES);
+  const [editingType, setEditingType] = useState<StationType | null>(null);
+  const [typeForm, setTypeForm] = useState({ label: "", icon: "" });
+  const [savingType, setSavingType] = useState(false);
+
+  const typeIcon = (t: StationType) => stationTypes.find((s) => s.value === t)?.icon ?? "📍";
+  const typeLabel = (t: StationType) => stationTypes.find((s) => s.value === t)?.label ?? t;
+  const STATION_TYPES = stationTypes;
   const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -51,6 +57,44 @@ export default function StationsPage() {
   }, [venueId]);
 
   useEffect(() => { void load(); }, [load]);
+
+  // Load station type labels from venue config
+  useEffect(() => {
+    if (!venueId) return;
+    fetch(`/api/venues/${venueId}`)
+      .then((r) => r.json())
+      .then((venue) => {
+        const labels = venue?.config?.stationTypeLabels as Record<string, { label: string; icon: string }> | undefined;
+        if (labels) {
+          setStationTypes(DEFAULT_TYPES.map((t) => ({
+            ...t,
+            label: labels[t.value]?.label ?? t.label,
+            icon: labels[t.value]?.icon ?? t.icon,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, [venueId]);
+
+  const saveTypeLabel = async () => {
+    if (!editingType || !venueId) return;
+    setSavingType(true);
+    try {
+      const current = stationTypes.reduce((acc, t) => ({ ...acc, [t.value]: { label: t.label, icon: t.icon } }), {} as Record<string, { label: string; icon: string }>);
+      current[editingType] = { label: typeForm.label, icon: typeForm.icon };
+      await fetch(`/api/venues/${venueId}/config`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stationTypeLabels: current }),
+      });
+      setStationTypes((prev) => prev.map((t) => t.value === editingType ? { ...t, label: typeForm.label, icon: typeForm.icon } : t));
+      setEditingType(null);
+    } catch {
+      alert("Kaydedilemedi.");
+    } finally {
+      setSavingType(false);
+    }
+  };
 
   const resetForm = () => {
     setForm({ name: "", stationType: "TABLE", hourlyRate: "" });
@@ -131,14 +175,82 @@ export default function StationsPage() {
             <h2 className="text-2xl font-bold">İstasyon Yönetimi</h2>
             <p className="text-zinc-500 text-sm mt-1">Masalar, PlayStation ve diğer alanlar</p>
           </div>
-          <button
-            id="add-station-btn"
-            onClick={() => { resetForm(); setShowForm(true); }}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition-all"
-          >
-            + Yeni İstasyon
-          </button>
+          {activeTab === "stations" && (
+            <button
+              id="add-station-btn"
+              onClick={() => { resetForm(); setShowForm(true); }}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition-all"
+            >
+              + Yeni İstasyon
+            </button>
+          )}
         </div>
+
+        {/* Tab navigation */}
+        <div className="flex gap-2 border-b border-white/5 pb-0">
+          {[
+            { key: "stations", label: "İstasyonlar" },
+            { key: "types", label: "Tür Yapılandırması" },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as "stations" | "types")}
+              className={`px-4 py-2 text-sm font-bold border-b-2 transition-all ${
+                activeTab === tab.key
+                  ? "border-blue-500 text-white"
+                  : "border-transparent text-zinc-500 hover:text-zinc-300"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Station types tab */}
+        {activeTab === "types" && (
+          <div className="bg-zinc-900/70 border border-white/10 rounded-2xl p-6 space-y-3">
+            <p className="text-sm text-zinc-400 mb-4">İstasyon türlerinin admin ve menüde görünen ad ve ikonunu özelleştirin.</p>
+            {stationTypes.map((t) => (
+              <div key={t.value} className="flex items-center gap-4 bg-zinc-800/50 rounded-xl p-4">
+                {editingType === t.value ? (
+                  <>
+                    <input
+                      value={typeForm.icon}
+                      onChange={(e) => setTypeForm((f) => ({ ...f, icon: e.target.value }))}
+                      className="w-14 bg-zinc-700 border border-white/10 rounded-lg px-2 py-1.5 text-center text-lg focus:outline-none focus:border-blue-500"
+                      placeholder="🎮"
+                    />
+                    <input
+                      value={typeForm.label}
+                      onChange={(e) => setTypeForm((f) => ({ ...f, label: e.target.value }))}
+                      className="flex-1 bg-zinc-700 border border-white/10 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-blue-500"
+                    />
+                    <button onClick={saveTypeLabel} disabled={savingType} className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold disabled:opacity-50">
+                      {savingType ? "..." : "Kaydet"}
+                    </button>
+                    <button onClick={() => setEditingType(null)} className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-bold">İptal</button>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-2xl w-10 text-center">{t.icon}</span>
+                    <div className="flex-1">
+                      <p className="font-bold text-sm">{t.label}</p>
+                      <p className="text-xs text-zinc-500 font-mono">{t.value}</p>
+                    </div>
+                    <button
+                      onClick={() => { setEditingType(t.value); setTypeForm({ label: t.label, icon: t.icon }); }}
+                      className="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-xs font-bold"
+                    >
+                      Düzenle
+                    </button>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === "stations" && (<>
 
         {showForm && (
           <div className="bg-zinc-900/70 border border-white/10 rounded-2xl p-6">
@@ -277,6 +389,7 @@ export default function StationsPage() {
             )}
           </div>
         )}
+        </>)}
       </div>
       {/* QR Code Modal */}
       {selectedQr && (
