@@ -15,6 +15,10 @@ RUN pnpm install --frozen-lockfile
 
 COPY apps/api/src ./apps/api/src
 
+# Build shared libs first so TypeScript can resolve @meta-repo/* imports
+RUN cd libs/types && pnpm run build 2>/dev/null || true
+RUN cd libs/auth-api && pnpm run build 2>/dev/null || true
+
 ENV DATABASE_URL="file:./prisma/dev.db"
 RUN cd apps/api && pnpm exec prisma generate
 RUN cd apps/api && pnpm run build
