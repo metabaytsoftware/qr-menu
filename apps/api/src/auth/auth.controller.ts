@@ -31,7 +31,6 @@ export class AuthController {
   async getCloudflareUser(@Req() req: Request) {
     const email = req.headers['cf-access-authenticated-user-email'] as string;
     const userName = req.headers['cf-access-authenticated-user-name'] as string;
-    const userPhone = req.headers['cf-access-authenticated-user-phone'] as string;
 
     if (!email) {
       return { isAuthenticated: false };
