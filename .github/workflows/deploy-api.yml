@@ -1,0 +1,80 @@
+name: Deploy API to Cloud Run
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'apps/api/**'
+      - 'libs/**'
+      - 'core/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+env:
+  PROJECT_ID: qr-menu-496520
+  REGION: europe-west3
+  SERVICE: qr-order-api
+  REGISTRY: europe-west3-docker.pkg.dev/qr-menu-496520/qr-menu
+  IMAGE: europe-west3-docker.pkg.dev/qr-menu-496520/qr-menu/api
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write  # Required for Workload Identity Federation
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t $IMAGE:${{ github.sha }} \
+            -t $IMAGE:latest \
+            -f apps/api/Dockerfile \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy $SERVICE \
+            --image=$IMAGE:${{ github.sha }} \
+            --region=$REGION \
+            --project=$PROJECT_ID \
+            --platform=managed \
+            --memory=512Mi \
+            --cpu=1 \
+            --min-instances=1 \
+            --max-instances=10 \
+            --timeout=300 \
+            --set-env-vars=NODE_ENV=production,PORT=8080 \
+            --update-secrets=DATABASE_URL=DATABASE_URL:latest,JWT_SECRET=JWT_SECRET:latest \
+            --allow-unauthenticated
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe $SERVICE \
+            --region=$REGION \
+            --project=$PROJECT_ID \
+            --format='value(status.url)'

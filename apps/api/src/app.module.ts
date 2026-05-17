@@ -12,6 +12,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthModule } from './health/health.module';
+import { VenuesModule } from './venues/venues.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { HealthModule } from './health/health.module';
     AnalyticsModule,
     AuthModule,
     HealthModule,
+    VenuesModule,
   ],
   controllers: [],
   providers: [],

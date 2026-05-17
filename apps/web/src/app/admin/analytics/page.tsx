@@ -191,7 +191,7 @@ function HourlyHeatmap({ data }: { data: HourlyData[] }) {
 // ─── Main Component ────────────────────────────────────────────────────────
 
 export default function AnalyticsPage() {
-  const [venueId, setVenueId] = useState("night-city-gaming");
+  const [venueId, setVenueId] = useState("");
   const [period, setPeriod] = useState<"7d" | "30d">("7d");
 
   const [summary, setSummary] = useState<Summary | null>(null);

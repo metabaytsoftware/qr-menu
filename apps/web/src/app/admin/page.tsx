@@ -24,7 +24,7 @@ export default function AdminDashboard() {
 
   const load = useCallback(async () => {
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       const data = await fetchOrders(venueId);
       setOrders(data.slice(0, 5));
 

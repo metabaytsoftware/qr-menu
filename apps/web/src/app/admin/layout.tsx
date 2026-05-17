@@ -13,10 +13,24 @@ export default function AdminLayout({
   const { user } = useCloudflareAuth();
 
   useEffect(() => {
-    // Get venueId from query params or use default as fallback
     const params = new URLSearchParams(window.location.search);
-    const venueId = params.get("venueId") || localStorage.getItem("venueId") || "night-city-gaming";
-    localStorage.setItem("venueId", venueId);
+    const fromQuery = params.get("venueId");
+    if (fromQuery) {
+      localStorage.setItem("venueId", fromQuery);
+      return;
+    }
+    const stored = localStorage.getItem("venueId");
+    if (!stored || stored === "night-city-gaming") {
+      localStorage.removeItem("venueId");
+      fetch("/api/venues")
+        .then((r) => r.json())
+        .then((venues: { id: string }[]) => {
+          if (venues?.[0]?.id) {
+            localStorage.setItem("venueId", venues[0].id);
+          }
+        })
+        .catch(() => {});
+    }
   }, []);
 
   return (

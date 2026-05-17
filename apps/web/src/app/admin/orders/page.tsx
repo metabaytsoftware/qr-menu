@@ -35,7 +35,7 @@ export default function OrdersPage() {
 
   const load = useCallback(async () => {
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       setOrders(await fetchOrders(venueId));
     } catch {
       console.error("Failed to fetch orders");

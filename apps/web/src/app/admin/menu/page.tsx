@@ -65,7 +65,7 @@ function ProductsTab({ categories }: { categories: AdminCategory[] }) {
 
   const load = useCallback(async () => {
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       setProducts(await fetchProducts(venueId));
     } catch {
       console.error("Failed to load products");
@@ -92,7 +92,7 @@ function ProductsTab({ categories }: { categories: AdminCategory[] }) {
     e.preventDefault();
     setSaving(true);
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       const payload = {
         name: form.name,
         description: form.description || undefined,
@@ -242,7 +242,7 @@ function CategoriesTab({ categories, onReload }: { categories: AdminCategory[]; 
     e.preventDefault();
     setSaving(true);
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       const payload = { name: form.name, sortOrder: parseInt(form.sortOrder) };
       if (modal === "edit" && editing) {
         await updateCategory(editing.id, payload);
@@ -367,7 +367,7 @@ export default function MenuPage() {
 
   const loadCategories = useCallback(async () => {
     try {
-      const venueId = localStorage.getItem("venueId") || "night-city-gaming";
+      const venueId = localStorage.getItem("venueId") || "";
       setCategories(await fetchCategories(venueId));
     } catch {
       console.error("Failed to load categories");

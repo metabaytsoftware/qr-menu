@@ -6,9 +6,9 @@ WORKDIR /app
 RUN npm install -g pnpm prisma@5.22.0
 
 # Copy workspace configuration
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc tsconfig.base.json ./
-COPY apps/qr-order-api/package.json ./apps/qr-order-api/
-COPY apps/qr-order-api/prisma ./apps/qr-order-api/prisma
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
+COPY apps/api/package.json ./apps/api/
+COPY apps/api/prisma ./apps/api/prisma
 
 # Install all dependencies (needed for workspace resolution)
 RUN pnpm install --frozen-lockfile
@@ -20,7 +20,7 @@ RUN mkdir -p /app/node_modules/@meta-repo && \
     ln -s ../../libs/types types
 
 # Copy source
-COPY apps/qr-order-api ./apps/qr-order-api
+COPY apps/api ./apps/api
 COPY libs ./libs
 COPY core ./core
 
@@ -31,10 +31,10 @@ RUN cd /app/libs/auth-api && npm run build 2>/dev/null || true
 # Generate Prisma Client
 WORKDIR /app
 ENV DATABASE_URL="file:./prisma/dev.db"
-RUN cd apps/qr-order-api && prisma generate
+RUN cd apps/api && prisma generate
 
 # Build app with TypeScript
-WORKDIR /app/apps/qr-order-api
+WORKDIR /app/apps/api
 RUN npm run build
 
 # Production stage
@@ -47,10 +47,10 @@ RUN apk add --no-cache dumb-init openssl
 # Copy hoisted node_modules, built libs, and app files
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/libs ./libs
-COPY --from=builder /app/apps/qr-order-api/dist ./dist
-COPY --from=builder /app/apps/qr-order-api/package.json ./
-COPY --from=builder /app/apps/qr-order-api/prisma ./prisma
-COPY --from=builder /app/apps/qr-order-api/src/generated ./src/generated
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/package.json ./
+COPY --from=builder /app/apps/api/prisma ./prisma
+COPY --from=builder /app/apps/api/src/generated ./src/generated
 
 ENV PORT=8080
 ENV NODE_ENV=production

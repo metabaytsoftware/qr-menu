@@ -30,8 +30,8 @@ export default function TariffsPage() {
 
   const venueId =
     typeof window !== "undefined"
-      ? localStorage.getItem("venueId") || "night-city-gaming"
-      : "night-city-gaming";
+      ? localStorage.getItem("venueId") ?? ""
+      : "";
 
   const load = useCallback(async () => {
     try {
