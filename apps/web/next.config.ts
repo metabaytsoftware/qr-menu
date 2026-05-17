@@ -1,17 +1,4 @@
 import type { NextConfig } from "next";
-import withPWAInit from "@ducanh2912/next-pwa";
-
-const withPWA = withPWAInit({
-  dest: "public",
-  // Disable PWA for now - it conflicts with Turbopack in Next.js 16
-  disable: true,
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
-  reloadOnOnline: true,
-  workboxOptions: {
-    disableDevLogs: true,
-  },
-});
 
 const nextConfig: NextConfig = {
   rewrites: async () => {
@@ -27,4 +14,4 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["localhost:3003", "192.168.1.115", "192.168.1.115:3003", "*"],
 };
 
-export default withPWA(nextConfig);
+export default nextConfig;
