@@ -69,8 +69,8 @@ jobs:
             --min-instances=1 \
             --max-instances=10 \
             --timeout=300 \
-            --set-env-vars=NODE_ENV=production \
-            --update-secrets=DATABASE_URL=DATABASE_URL:latest,JWT_SECRET=JWT_SECRET:latest \
+            --set-env-vars=NODE_ENV=production,LOG_LEVEL=info,CORS_ORIGIN=https://qr-menu.fx8.io,JWT_EXPIRY=24h,REFRESH_TOKEN_EXPIRY=7d \
+            --update-secrets=DATABASE_URL=DATABASE_URL:latest,JWT_SECRET=JWT_SECRET:latest,REFRESH_TOKEN_SECRET=REFRESH_TOKEN_SECRET:latest,REDIS_URL=REDIS_URL:latest \
             --allow-unauthenticated
 
       - name: Show service URL
