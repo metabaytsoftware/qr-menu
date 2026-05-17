@@ -6,7 +6,6 @@
     "NEXT_PUBLIC_BASE_URL": "@next_public_base_url",
     "NEXT_PUBLIC_API_URL": "@next_public_api_url"
   },
-  "domains": ["qr-menu.fx8.io"],
   "headers": [
     {
       "source": "/api/:path*",
