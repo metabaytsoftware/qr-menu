@@ -13,10 +13,6 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@meta-repo/ui"],
-  webpack: (config) => {
-    return config;
-  },
   rewrites: async () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://192.168.1.116:3002";
     return [
