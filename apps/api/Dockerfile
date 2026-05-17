@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g pnpm prisma@5.22.0
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
-COPY apps/api/package.json ./apps/api/
+COPY apps/api/package.json apps/api/tsconfig.json ./apps/api/
 COPY apps/api/prisma ./apps/api/prisma
 COPY libs/ ./libs/
 COPY core/ ./core/
