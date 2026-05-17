@@ -2,10 +2,6 @@
   "buildCommand": "next build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_BASE_URL": "@next_public_base_url",
-    "NEXT_PUBLIC_API_URL": "@next_public_api_url"
-  },
   "headers": [
     {
       "source": "/api/:path*",
