@@ -1,5 +1,4 @@
 import type { AdminCategory, AdminProduct, MenuResponse, Order, Station, Session, Tariff, SessionBill, Payment } from '@/types';
-import { useAuthStore } from '@meta-repo/auth-client';
 
 const API_BASE = '/api';
 
@@ -10,7 +9,9 @@ async function apiCall<T>(url: string, init?: RequestInit, useAuth: boolean = fa
   const headers = { ...init?.headers } as Record<string, string>;
 
   if (useAuth) {
-    const token = useAuthStore.getState().accessToken;
+    // TODO: Implement proper auth token retrieval
+    // For now, this endpoint requires auth but we don't have tokens
+    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }

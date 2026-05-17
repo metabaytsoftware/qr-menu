@@ -1,0 +1,34 @@
+# Global code owners
+* @metabaytsoftware
+
+# API code owners
+/apps/api/ @metabaytsoftware
+/apps/api/src/modules/ @metabaytsoftware
+/apps/api/prisma/ @metabaytsoftware
+/apps/api/Dockerfile @metabaytsoftware
+
+# Web frontend code owners
+/apps/web/ @metabaytsoftware
+/apps/web/src/ @metabaytsoftware
+/apps/web/next.config.ts @metabaytsoftware
+
+# Shared libraries
+/libs/ @metabaytsoftware
+/libs/types/ @metabaytsoftware
+/libs/shared/ @metabaytsoftware
+/libs/auth-api/ @metabaytsoftware
+
+# Configuration and infrastructure
+/.github/ @metabaytsoftware
+/CLAUDE.md @metabaytsoftware
+/ARCHITECTURE.md @metabaytsoftware
+/CONTRIBUTING.md @metabaytsoftware
+/DEPLOYMENT_PLAN.md @metabaytsoftware
+/package.json @metabaytsoftware
+/pnpm-workspace.yaml @metabaytsoftware
+/tsconfig.base.json @metabaytsoftware
+
+# Root configuration
+/.editorconfig @metabaytsoftware
+/.gitignore @metabaytsoftware
+/.npmrc @metabaytsoftware
