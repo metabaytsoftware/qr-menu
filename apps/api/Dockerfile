@@ -34,7 +34,7 @@ COPY core/ ./core/
 RUN pnpm install --frozen-lockfile
 
 # pnpm deploy bundles all production deps into /deploy
-RUN pnpm deploy --filter=@meta-repo/qr-order-api --prod /deploy
+RUN pnpm deploy --filter=@meta-repo/qr-order-api --prod --legacy /deploy
 
 # Stage 3: Minimal production image
 FROM node:22-alpine
