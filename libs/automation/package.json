@@ -1,0 +1,17 @@
+{
+  "name": "@meta-repo/automation",
+  "version": "1.0.0",
+  "description": "Workflow engines, integration logic, orchestration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/jest": "^30.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+packages:
+  - 'apps/*'
+  - 'core/*'
+  - 'libs/*'
+  - 'libs/youtube'
+  - 'apps/yt-analyzer-api'
+  - 'apps/yt-analyzer-web'
+  - 'platform/docker'
+  - 'agents/claude'
+  - 'agents/langchain'
+  - 'agents/mcp'

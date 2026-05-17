@@ -1,0 +1,53 @@
+{
+  "name": "meta-repo",
+  "version": "1.0.0",
+  "description": "Enterprise polyglot monorepo template with agentic AI, multi-language support, and modern DevOps",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "setup": "./tools/scripts/setup.sh",
+    "build": "turbo build",
+    "dev": "turbo dev --parallel",
+    "test": "turbo test",
+    "test:cov": "turbo test:cov",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "ci": "pnpm lint && pnpm type-check && pnpm test && pnpm build",
+    "health": "./tools/scripts/health-check.sh",
+    "clean": "turbo clean && pnpm rm -r node_modules"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.0.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^3.0.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "googleapis": "^140.0.1"
+  },
+  "workspaces": [
+    "apps/*",
+    "core/*",
+    "libs/*",
+    "platform/docker",
+    "agents/claude",
+    "agents/langchain"
+  ],
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^18.2.0",
+      "@types/react-dom": "^18.2.0"
+    }
+  }
+}

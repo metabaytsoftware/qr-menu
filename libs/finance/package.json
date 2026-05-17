@@ -1,0 +1,19 @@
+{
+  "name": "@meta-repo/finance",
+  "version": "1.0.0",
+  "description": "Finance domain (calculations, algorithms, rate conversions)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/jest": "^30.0.0"
+  }
+}

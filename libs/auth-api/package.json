@@ -1,0 +1,32 @@
+{
+  "name": "@meta-repo/auth-api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "bcryptjs": "^3.0.3",
+    "class-validator": "^0.15.1"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.0.0 || ^4.0.0",
+    "@nestjs/jwt": "^10.0.0",
+    "@nestjs/passport": "^10.0.0",
+    "@meta-repo/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "@meta-repo/types": "workspace:*",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/passport-jwt": "^4.0.1",
+    "typescript": "^5.3.0"
+  }
+}
