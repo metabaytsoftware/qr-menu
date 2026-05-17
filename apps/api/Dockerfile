@@ -37,6 +37,10 @@ COPY core/ ./core/
 
 RUN pnpm install --frozen-lockfile
 
+# Build shared libs so their dist/ is included by pnpm deploy
+RUN cd libs/types && pnpm run build 2>/dev/null || true
+RUN cd libs/auth-api && pnpm run build 2>/dev/null || true
+
 # pnpm deploy bundles all production deps into /deploy
 RUN pnpm deploy --filter=@meta-repo/qr-order-api --prod --legacy /deploy
 
