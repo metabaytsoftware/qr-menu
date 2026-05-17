@@ -68,7 +68,7 @@ jobs:
             --min-instances=1 \
             --max-instances=10 \
             --timeout=300 \
-            --set-env-vars=NODE_ENV=production,PORT=8080 \
+            --set-env-vars=NODE_ENV=production \
             --update-secrets=DATABASE_URL=DATABASE_URL:latest,JWT_SECRET=JWT_SECRET:latest \
             --allow-unauthenticated
 
