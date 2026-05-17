@@ -3246,6 +3246,7 @@ export namespace Prisma {
     name: string | null
     qrCode: string | null
     stationType: $Enums.StationType | null
+    customType: string | null
     hourlyRate: Decimal | null
     isActive: boolean | null
     createdAt: Date | null
@@ -3258,6 +3259,7 @@ export namespace Prisma {
     name: string | null
     qrCode: string | null
     stationType: $Enums.StationType | null
+    customType: string | null
     hourlyRate: Decimal | null
     isActive: boolean | null
     createdAt: Date | null
@@ -3270,6 +3272,7 @@ export namespace Prisma {
     name: number
     qrCode: number
     stationType: number
+    customType: number
     hourlyRate: number
     isActive: number
     createdAt: number
@@ -3292,6 +3295,7 @@ export namespace Prisma {
     name?: true
     qrCode?: true
     stationType?: true
+    customType?: true
     hourlyRate?: true
     isActive?: true
     createdAt?: true
@@ -3304,6 +3308,7 @@ export namespace Prisma {
     name?: true
     qrCode?: true
     stationType?: true
+    customType?: true
     hourlyRate?: true
     isActive?: true
     createdAt?: true
@@ -3316,6 +3321,7 @@ export namespace Prisma {
     name?: true
     qrCode?: true
     stationType?: true
+    customType?: true
     hourlyRate?: true
     isActive?: true
     createdAt?: true
@@ -3415,6 +3421,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType: $Enums.StationType
+    customType: string | null
     hourlyRate: Decimal | null
     isActive: boolean
     createdAt: Date
@@ -3446,6 +3453,7 @@ export namespace Prisma {
     name?: boolean
     qrCode?: boolean
     stationType?: boolean
+    customType?: boolean
     hourlyRate?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -3462,6 +3470,7 @@ export namespace Prisma {
     name?: boolean
     qrCode?: boolean
     stationType?: boolean
+    customType?: boolean
     hourlyRate?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -3475,6 +3484,7 @@ export namespace Prisma {
     name?: boolean
     qrCode?: boolean
     stationType?: boolean
+    customType?: boolean
     hourlyRate?: boolean
     isActive?: boolean
     createdAt?: boolean
@@ -3504,6 +3514,7 @@ export namespace Prisma {
       name: string
       qrCode: string
       stationType: $Enums.StationType
+      customType: string | null
       hourlyRate: Prisma.Decimal | null
       isActive: boolean
       createdAt: Date
@@ -3909,6 +3920,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Station", 'String'>
     readonly qrCode: FieldRef<"Station", 'String'>
     readonly stationType: FieldRef<"Station", 'StationType'>
+    readonly customType: FieldRef<"Station", 'String'>
     readonly hourlyRate: FieldRef<"Station", 'Decimal'>
     readonly isActive: FieldRef<"Station", 'Boolean'>
     readonly createdAt: FieldRef<"Station", 'DateTime'>
@@ -13685,6 +13697,7 @@ export namespace Prisma {
     name: 'name',
     qrCode: 'qrCode',
     stationType: 'stationType',
+    customType: 'customType',
     hourlyRate: 'hourlyRate',
     isActive: 'isActive',
     createdAt: 'createdAt',
@@ -14172,6 +14185,7 @@ export namespace Prisma {
     name?: StringFilter<"Station"> | string
     qrCode?: StringFilter<"Station"> | string
     stationType?: EnumStationTypeFilter<"Station"> | $Enums.StationType
+    customType?: StringNullableFilter<"Station"> | string | null
     hourlyRate?: DecimalNullableFilter<"Station"> | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFilter<"Station"> | boolean
     createdAt?: DateTimeFilter<"Station"> | Date | string
@@ -14187,6 +14201,7 @@ export namespace Prisma {
     name?: SortOrder
     qrCode?: SortOrder
     stationType?: SortOrder
+    customType?: SortOrderInput | SortOrder
     hourlyRate?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -14206,6 +14221,7 @@ export namespace Prisma {
     venueId?: StringFilter<"Station"> | string
     name?: StringFilter<"Station"> | string
     stationType?: EnumStationTypeFilter<"Station"> | $Enums.StationType
+    customType?: StringNullableFilter<"Station"> | string | null
     hourlyRate?: DecimalNullableFilter<"Station"> | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFilter<"Station"> | boolean
     createdAt?: DateTimeFilter<"Station"> | Date | string
@@ -14221,6 +14237,7 @@ export namespace Prisma {
     name?: SortOrder
     qrCode?: SortOrder
     stationType?: SortOrder
+    customType?: SortOrderInput | SortOrder
     hourlyRate?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -14241,6 +14258,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Station"> | string
     qrCode?: StringWithAggregatesFilter<"Station"> | string
     stationType?: EnumStationTypeWithAggregatesFilter<"Station"> | $Enums.StationType
+    customType?: StringNullableWithAggregatesFilter<"Station"> | string | null
     hourlyRate?: DecimalNullableWithAggregatesFilter<"Station"> | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolWithAggregatesFilter<"Station"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Station"> | Date | string
@@ -15108,6 +15126,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15123,6 +15142,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15136,6 +15156,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15151,6 +15172,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15165,6 +15187,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15176,6 +15199,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15188,6 +15212,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16299,6 +16324,7 @@ export namespace Prisma {
     name?: SortOrder
     qrCode?: SortOrder
     stationType?: SortOrder
+    customType?: SortOrder
     hourlyRate?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -16315,6 +16341,7 @@ export namespace Prisma {
     name?: SortOrder
     qrCode?: SortOrder
     stationType?: SortOrder
+    customType?: SortOrder
     hourlyRate?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -16327,6 +16354,7 @@ export namespace Prisma {
     name?: SortOrder
     qrCode?: SortOrder
     stationType?: SortOrder
+    customType?: SortOrder
     hourlyRate?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
@@ -18303,6 +18331,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -18316,6 +18345,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -18547,6 +18577,7 @@ export namespace Prisma {
     name?: StringFilter<"Station"> | string
     qrCode?: StringFilter<"Station"> | string
     stationType?: EnumStationTypeFilter<"Station"> | $Enums.StationType
+    customType?: StringNullableFilter<"Station"> | string | null
     hourlyRate?: DecimalNullableFilter<"Station"> | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFilter<"Station"> | boolean
     createdAt?: DateTimeFilter<"Station"> | Date | string
@@ -19046,6 +19077,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -19060,6 +19092,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -19138,6 +19171,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19152,6 +19186,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19569,6 +19604,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -19583,6 +19619,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -19749,6 +19786,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19763,6 +19801,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20332,6 +20371,7 @@ export namespace Prisma {
     name: string
     qrCode: string
     stationType?: $Enums.StationType
+    customType?: string | null
     hourlyRate?: Decimal | DecimalJsLike | number | string | null
     isActive?: boolean
     createdAt?: Date | string
@@ -20407,6 +20447,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20420,6 +20461,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20433,6 +20475,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     qrCode?: StringFieldUpdateOperationsInput | string
     stationType?: EnumStationTypeFieldUpdateOperationsInput | $Enums.StationType
+    customType?: NullableStringFieldUpdateOperationsInput | string | null
     hourlyRate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

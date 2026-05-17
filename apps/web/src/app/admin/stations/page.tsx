@@ -163,12 +163,12 @@ export default function StationsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // If a custom type is selected, use OTHER as the DB enum value
     const effectiveType = form.customTypeId ? "OTHER" as StationType : form.stationType;
     const payload = {
       venueId,
       name: form.name,
       stationType: effectiveType,
+      customType: form.customTypeId || undefined,
       hourlyRate: form.hourlyRate ? parseFloat(form.hourlyRate) : undefined,
     };
     try {
@@ -189,7 +189,7 @@ export default function StationsPage() {
       name: s.name,
       stationType: s.stationType,
       hourlyRate: s.hourlyRate ? String(s.hourlyRate) : "",
-      customTypeId: "",
+      customTypeId: (s as any).customType || "",
     });
     setEditingId(s.id);
     setShowForm(true);
@@ -449,7 +449,15 @@ export default function StationsPage() {
           <div className="text-center py-16 text-zinc-500">Yükleniyor...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {stations.map((station) => (
+            {stations.map((station) => {
+              const customTypeData = (station as any).customType 
+                ? customTypes.find(t => t.id === (station as any).customType) 
+                : null;
+              
+              const icon = customTypeData ? customTypeData.icon : typeIcon(station.stationType);
+              const label = customTypeData ? customTypeData.label : typeLabel(station.stationType);
+
+              return (
               <div
                 key={station.id}
                 className={`bg-zinc-900/50 border rounded-2xl p-5 transition-all ${
@@ -458,10 +466,10 @@ export default function StationsPage() {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-2xl">{typeIcon(station.stationType)}</span>
+                    <span className="text-2xl">{icon}</span>
                     <div>
                       <p className="font-bold">{station.name}</p>
-                      <p className="text-xs text-zinc-500">{typeLabel(station.stationType)}</p>
+                      <p className="text-xs text-zinc-500">{label}</p>
                     </div>
                   </div>
                   <span className={`text-xs px-2 py-1 rounded-lg font-bold ${station.isActive ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"}`}>
@@ -515,11 +523,11 @@ export default function StationsPage() {
                     onClick={() => handleDelete(station.id)}
                     className="py-1.5 px-3 text-xs font-bold bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg transition-all"
                   >
-                    🗑
                   </button>
                 </div>
               </div>
-            ))}
+            );
+            })}
 
             {stations.length === 0 && (
               <div className="col-span-3 text-center py-16 text-zinc-500">
@@ -544,7 +552,11 @@ export default function StationsPage() {
                 ✕
               </button>
               <h3 className="text-xl font-bold mb-1">{selectedQr.name}</h3>
-              <p className="text-zinc-500 text-sm mb-6">{typeLabel(selectedQr.stationType)}</p>
+              <p className="text-zinc-500 text-sm mb-6">
+                {(selectedQr as any).customType 
+                  ? customTypes.find(t => t.id === (selectedQr as any).customType)?.label || typeLabel(selectedQr.stationType)
+                  : typeLabel(selectedQr.stationType)}
+              </p>
               
               <div className="bg-white p-4 rounded-2xl inline-block mb-6 shadow-xl">
                 <QRCodeSVG 

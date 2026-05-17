@@ -142,6 +142,7 @@ exports.Prisma.StationScalarFieldEnum = {
   name: 'name',
   qrCode: 'qrCode',
   stationType: 'stationType',
+  customType: 'customType',
   hourlyRate: 'hourlyRate',
   isActive: 'isActive',
   createdAt: 'createdAt',

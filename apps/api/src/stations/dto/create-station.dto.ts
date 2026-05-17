@@ -13,6 +13,10 @@ export class CreateStationDto {
   @IsOptional()
   stationType?: StationType;
 
+  @IsString()
+  @IsOptional()
+  customType?: string;
+
   @IsNumber()
   @IsOptional()
   @Min(0)

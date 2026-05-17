@@ -10,6 +10,10 @@ export class UpdateStationDto {
   @IsOptional()
   stationType?: StationType;
 
+  @IsString()
+  @IsOptional()
+  customType?: string;
+
   @IsNumber()
   @IsOptional()
   @Min(0)

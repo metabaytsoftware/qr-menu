@@ -35,6 +35,7 @@ export class StationsService {
         name: dto.name,
         qrCode,
         stationType: dto.stationType ?? 'TABLE',
+        customType: dto.customType ?? null,
         hourlyRate: dto.hourlyRate ?? null,
       },
     });
@@ -47,6 +48,7 @@ export class StationsService {
       data: {
         ...(dto.name !== undefined && { name: dto.name }),
         ...(dto.stationType !== undefined && { stationType: dto.stationType }),
+        ...(dto.customType !== undefined && { customType: dto.customType }),
         ...(dto.hourlyRate !== undefined && { hourlyRate: dto.hourlyRate }),
         ...(dto.isActive !== undefined && { isActive: dto.isActive }),
       },

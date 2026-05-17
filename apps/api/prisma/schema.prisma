@@ -54,6 +54,7 @@ model Station {
   name         String      // e.g., "PS-01", "Table 5"
   qrCode       String      @unique @map("qr_code")
   stationType  StationType @default(TABLE) @map("station_type")
+  customType   String?     @map("custom_type") // stores dynamic custom type ID
   hourlyRate   Decimal?    @map("hourly_rate") @db.Decimal(10, 2)
   isActive     Boolean     @default(true) @map("is_active")
   createdAt    DateTime    @default(now()) @map("created_at")
