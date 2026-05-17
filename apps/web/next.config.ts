@@ -3,7 +3,8 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  disable: process.env.NODE_ENV === "development",
+  // Disable PWA for now - it conflicts with Turbopack in Next.js 16
+  disable: true,
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
@@ -13,9 +14,6 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbopack: {},
-  },
   rewrites: async () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://192.168.1.116:3002";
     return [
