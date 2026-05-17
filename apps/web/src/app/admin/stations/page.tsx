@@ -41,9 +41,24 @@ export default function StationsPage() {
   const [selectedQr, setSelectedQr] = useState<Station | null>(null);
   const [isRegenerating, setIsRegenerating] = useState(false);
 
-  const venueId = typeof window !== "undefined"
-    ? localStorage.getItem("venueId") ?? ""
-    : "";
+  const [venueId, setVenueId] = useState("");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("venueId") ?? "";
+    if (stored && stored !== "night-city-gaming") {
+      setVenueId(stored);
+      return;
+    }
+    fetch("/api/venues")
+      .then((r) => r.json())
+      .then((venues: { id: string }[]) => {
+        if (venues?.[0]?.id) {
+          localStorage.setItem("venueId", venues[0].id);
+          setVenueId(venues[0].id);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const load = useCallback(async () => {
     try {

@@ -26,7 +26,9 @@ export class StationsService {
   }
 
   async create(dto: CreateStationDto) {
-    const qrCode = `${dto.venueId}-${dto.name}-${randomUUID().slice(0, 8)}`.toLowerCase().replace(/\s+/g, '-');
+    const venue = await this.prisma.venue.findUnique({ where: { id: dto.venueId }, select: { slug: true } });
+    const prefix = venue?.slug ?? dto.venueId;
+    const qrCode = `${prefix}-${dto.name}-${randomUUID().slice(0, 8)}`.toLowerCase().replace(/\s+/g, '-');
     return this.prisma.station.create({
       data: {
         venueId: dto.venueId,
@@ -65,7 +67,9 @@ export class StationsService {
 
   async regenerateQr(id: string) {
     const station = await this.findOne(id);
-    const qrCode = `${station.venueId}-${station.name}-${randomUUID().slice(0, 8)}`.toLowerCase().replace(/\s+/g, '-');
+    const venue = await this.prisma.venue.findUnique({ where: { id: station.venueId }, select: { slug: true } });
+    const prefix = venue?.slug ?? station.venueId;
+    const qrCode = `${prefix}-${station.name}-${randomUUID().slice(0, 8)}`.toLowerCase().replace(/\s+/g, '-');
     return this.prisma.station.update({ where: { id }, data: { qrCode } });
   }
 }
