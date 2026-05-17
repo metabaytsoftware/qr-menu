@@ -27,7 +27,7 @@ export class VenuesService {
     const merged = { ...(venue.config as Record<string, unknown> ?? {}), ...config };
     return this.prisma.venue.update({
       where: { id },
-      data: { config: merged },
+      data: { config: merged as object },
       select: { id: true, name: true, config: true },
     });
   }
