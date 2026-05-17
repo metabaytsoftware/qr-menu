@@ -13,6 +13,9 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbopack: {},
+  },
   rewrites: async () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://192.168.1.116:3002";
     return [
