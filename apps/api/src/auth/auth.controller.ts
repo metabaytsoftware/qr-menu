@@ -75,7 +75,14 @@ export class AuthController {
         await this.authService.logoutByToken(token);
       } catch {}
     }
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token');
+    const isProd = process.env.NODE_ENV === 'production';
+    const cookieOptions = {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+      path: '/',
+    };
+    res.clearCookie('access_token', cookieOptions);
+    res.clearCookie('refresh_token', cookieOptions);
   }
 }

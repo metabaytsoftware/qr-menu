@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AdminAuthGuard } from "@/components/AdminAuthGuard";
-import { useAuth } from "@/lib/useAuth";
 
 interface SidebarLinkProps {
   href: string;
@@ -59,7 +58,17 @@ function SidebarSection({ title, isCollapsed }: { title: string; isCollapsed: bo
   );
 }
 
-export default function AdminLayout({
+import { AuthProvider, useAuth } from "@/lib/useAuth";
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <AuthProvider>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </AuthProvider>
+  );
+}
+
+function AdminLayoutContent({
   children,
 }: {
   children: React.ReactNode;
