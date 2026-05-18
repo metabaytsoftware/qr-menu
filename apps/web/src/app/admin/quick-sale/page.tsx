@@ -69,7 +69,7 @@ export default function QuickSalePage() {
 
   const clearCart = () => setCart([]);
 
-  const totalAmount = cart.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
+  const totalAmount = cart.reduce((sum, item) => sum + item.quantity * Number(item.product.price), 0);
 
   const handleCheckout = async () => {
     if (cart.length === 0) return;
@@ -151,7 +151,7 @@ export default function QuickSalePage() {
                   {product.name}
                 </div>
                 <div className="mt-2 font-bold text-blue-400 text-lg">
-                  ₺{product.price.toFixed(2)}
+                  ₺{Number(product.price).toFixed(2)}
                 </div>
               </button>
             ))}
@@ -185,7 +185,7 @@ export default function QuickSalePage() {
               <div key={item.product.id} className="flex items-center justify-between bg-zinc-800/30 p-3 rounded-xl border border-white/5">
                 <div className="flex-1 min-w-0 pr-2">
                   <div className="font-semibold text-sm truncate">{item.product.name}</div>
-                  <div className="text-xs text-blue-400 font-bold">₺{(item.product.price * item.quantity).toFixed(2)}</div>
+                  <div className="text-xs text-blue-400 font-bold">₺{(Number(item.product.price) * item.quantity).toFixed(2)}</div>
                 </div>
                 <div className="flex items-center gap-3 bg-zinc-800 rounded-lg p-1">
                   <button onClick={() => removeFromCart(item.product.id)} className="w-6 h-6 flex items-center justify-center bg-zinc-700 hover:bg-zinc-600 rounded text-white font-bold">

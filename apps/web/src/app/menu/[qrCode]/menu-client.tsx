@@ -47,7 +47,7 @@ export default function MenuClient({ qrCode }: { qrCode: string }) {
     });
   };
 
-  const cartTotal = cart.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
+  const cartTotal = cart.reduce((sum, i) => sum + Number(i.product.price) * i.quantity, 0);
   const cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
   const quantityOf = (id: string) => cart.find((i) => i.product.id === id)?.quantity ?? 0;
 
@@ -166,7 +166,7 @@ export default function MenuClient({ qrCode }: { qrCode: string }) {
                   <p className="text-xs text-zinc-500 mt-0.5 line-clamp-2">{product.description}</p>
                 )}
                 <div className="flex items-center justify-between mt-3">
-                  <span className="font-black text-blue-400">₺{product.price.toFixed(2)}</span>
+                  <span className="font-black text-blue-400">₺{Number(product.price).toFixed(2)}</span>
                   {qty === 0 ? (
                     <button
                       onClick={() => addToCart(product)}
@@ -218,7 +218,7 @@ export default function MenuClient({ qrCode }: { qrCode: string }) {
                 <div key={item.product.id} className="flex items-center gap-3 bg-zinc-800/50 rounded-xl p-3">
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm truncate">{item.product.name}</p>
-                    <p className="text-xs text-zinc-400">₺{item.product.price.toFixed(2)} × {item.quantity}</p>
+                    <p className="text-xs text-zinc-400">₺{Number(item.product.price).toFixed(2)} × {item.quantity}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <button onClick={() => removeFromCart(item.product.id)} className="w-7 h-7 rounded-lg bg-zinc-700 font-bold text-sm">−</button>
@@ -226,7 +226,7 @@ export default function MenuClient({ qrCode }: { qrCode: string }) {
                     <button onClick={() => addToCart(item.product)} className="w-7 h-7 rounded-lg bg-blue-600 font-bold text-sm">+</button>
                   </div>
                   <span className="font-black text-blue-400 text-sm w-16 text-right">
-                    ₺{(item.product.price * item.quantity).toFixed(2)}
+                    ₺{(Number(item.product.price) * item.quantity).toFixed(2)}
                   </span>
                 </div>
               ))}
