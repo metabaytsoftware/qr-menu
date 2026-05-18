@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 import { PrismaExceptionFilter } from './utils/prisma-exception.filter';
 
 async function bootstrap() {
@@ -9,6 +10,7 @@ async function bootstrap() {
   
   const app = await NestFactory.create(AppModule);
 
+  app.use(cookieParser());
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ 
     transform: true,

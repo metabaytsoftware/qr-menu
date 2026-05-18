@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@meta-repo/auth-api';
 import { TariffsService } from './tariffs.service';
 import { CreateTariffDto } from './dto/create-tariff.dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller('tariffs')
 export class TariffsController {
   constructor(private readonly service: TariffsService) {}

@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@meta-repo/auth-api';
 import { PaymentsService } from './payments.service';
 import { AddPaymentDto } from './dto/add-payment.dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}

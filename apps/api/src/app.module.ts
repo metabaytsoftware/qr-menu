@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { InternalApiGuard } from './common/guards/internal-api.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
@@ -32,6 +34,8 @@ import { VenuesModule } from './venues/venues.module';
     VenuesModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    { provide: APP_GUARD, useClass: InternalApiGuard },
+  ],
 })
 export class AppModule {}

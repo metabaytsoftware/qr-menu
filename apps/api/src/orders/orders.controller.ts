@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@meta-repo/auth-api';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
@@ -12,11 +13,13 @@ export class OrdersController {
     return this.ordersService.create(dto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':venueId')
   async getByVenue(@Param('venueId') venueId: string, @Query('status') status?: string) {
     return this.ordersService.getByVenue(venueId, status);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id/status')
   updateStatus(@Param('id') id: string, @Body() dto: UpdateOrderStatusDto) {
     return this.ordersService.updateStatus(id, dto.status);

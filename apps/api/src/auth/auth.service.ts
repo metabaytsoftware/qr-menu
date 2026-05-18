@@ -77,6 +77,30 @@ export class AuthService {
     }
   }
 
+  async cloudflareLogin(email: string): Promise<any> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user || !user.isActive) {
+      throw new UnauthorizedException('Bu e-posta ile kayıtlı aktif kullanıcı bulunamadı');
+    }
+
+    const tokens = await this.issueTokens(user.id, user.email, user.role, user.venueId);
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        venueId: user.venueId,
+      },
+      ...tokens,
+    };
+  }
+
   async logout(userId: string): Promise<void> {
     await this.prisma.refreshToken.deleteMany({
       where: { userId },
