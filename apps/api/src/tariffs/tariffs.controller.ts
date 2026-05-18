@@ -1,18 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '@meta-repo/auth-api';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Permission } from '../permissions/permission.decorator';
 import { TariffsService } from './tariffs.service';
 import { CreateTariffDto } from './dto/create-tariff.dto';
 
-@UseGuards(JwtAuthGuard)
 @Controller('tariffs')
 export class TariffsController {
   constructor(private readonly service: TariffsService) {}
 
+  @Permission('tariffs', 'read')
   @Get('venue/:venueId')
   findByVenue(@Param('venueId') venueId: string) {
     return this.service.findByVenue(venueId);
   }
 
+  @Permission('tariffs', 'read')
   @Get('venue/:venueId/effective-rate')
   getEffectiveRate(
     @Param('venueId') venueId: string,
@@ -22,16 +23,19 @@ export class TariffsController {
     return this.service.getEffectiveRate(venueId, stationType, parseInt(hour, 10) || new Date().getHours());
   }
 
+  @Permission('tariffs', 'write')
   @Post()
   create(@Body() dto: CreateTariffDto) {
     return this.service.create(dto);
   }
 
+  @Permission('tariffs', 'write')
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: Partial<CreateTariffDto>) {
     return this.service.update(id, dto);
   }
 
+  @Permission('tariffs', 'write')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.service.remove(id);

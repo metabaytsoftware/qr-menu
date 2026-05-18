@@ -88,6 +88,17 @@ export class OrdersService {
     });
   }
 
+  async cancelOrder(id: string) {
+    const order = await this.prisma.order.findUnique({ where: { id } });
+    if (!order) throw new NotFoundException('Order not found');
+    if (order.status === OrderStatus.CANCELLED) return order;
+    return this.prisma.order.update({
+      where: { id },
+      data: { status: OrderStatus.CANCELLED },
+      include: { items: { include: { product: true } }, station: true, payments: true },
+    });
+  }
+
   async getOrderStatus(id: string) {
     const order = await this.prisma.order.findUnique({
       where: { id },

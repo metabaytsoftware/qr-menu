@@ -18,6 +18,8 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthModule } from './health/health.module';
 import { VenuesModule } from './venues/venues.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { VenuesModule } from './venues/venues.module';
     AuthModule,
     HealthModule,
     VenuesModule,
+    PermissionsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

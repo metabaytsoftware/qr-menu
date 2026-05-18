@@ -225,7 +225,19 @@ model Payment {
 enum Role {
   OWNER
   MANAGER
+  CASHIER
   STAFF
+}
+
+model RolePermission {
+  id       String  @id @default(cuid())
+  role     Role
+  resource String
+  action   String
+  allowed  Boolean @default(true)
+
+  @@unique([role, resource, action])
+  @@map("role_permissions")
 }
 
 model User {

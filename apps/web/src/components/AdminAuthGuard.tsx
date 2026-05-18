@@ -1,22 +1,34 @@
 'use client';
 
-import { useCloudflareAuth } from '@/lib/useCloudflareAuth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useAuth } from '@/lib/useAuth';
 
 export function AdminAuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading } = useCloudflareAuth();
-  const [mounted, setMounted] = useState(false);
+  const { isAuthenticated, isLoading, login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSubmitting(true);
+    try {
+      await login(email, password);
+    } catch (err: any) {
+      setError(err.message || 'Giriş başarısız');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-  if (!mounted || isLoading) {
+  if (isLoading) {
     return (
-      <div className="flex min-h-screen bg-zinc-950 items-center justify-center p-4">
+      <div className="flex min-h-screen bg-zinc-950 items-center justify-center">
         <div className="text-white text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p>Yükleniyor...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" />
+          <p className="text-zinc-400">Yükleniyor...</p>
         </div>
       </div>
     );
@@ -32,17 +44,40 @@ export function AdminAuthGuard({ children }: { children: React.ReactNode }) {
               <span className="text-2xl font-bold tracking-tight text-white">VENUE<span className="text-blue-500">ADMIN</span></span>
             </div>
           </div>
-          <div className="text-center space-y-4">
-            <p className="text-zinc-300">Erişim için Cloudflare Authentication gereklidir.</p>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="E-posta"
+                required
+                autoComplete="email"
+                className="w-full px-4 py-3 bg-zinc-800 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Şifre"
+                required
+                autoComplete="current-password"
+                className="w-full px-4 py-3 bg-zinc-800 border border-white/10 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+            </div>
+            {error && (
+              <p className="text-red-400 text-sm text-center">{error}</p>
+            )}
             <button
-              onClick={() => {
-                window.location.href = '/admin';
-              }}
-              className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+              type="submit"
+              disabled={submitting}
+              className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold rounded-xl transition-colors"
             >
-              Tekrar Dene
+              {submitting ? 'Giriş yapılıyor...' : 'Giriş Yap'}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     );

@@ -239,6 +239,14 @@ exports.Prisma.PaymentScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RolePermissionScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  resource: 'resource',
+  action: 'action',
+  allowed: 'allowed'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   venueId: 'venueId',
@@ -330,6 +338,7 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
 exports.Role = exports.$Enums.Role = {
   OWNER: 'OWNER',
   MANAGER: 'MANAGER',
+  CASHIER: 'CASHIER',
   STAFF: 'STAFF'
 };
 
@@ -343,6 +352,7 @@ exports.Prisma.ModelName = {
   Order: 'Order',
   OrderItem: 'OrderItem',
   Payment: 'Payment',
+  RolePermission: 'RolePermission',
   User: 'User',
   RefreshToken: 'RefreshToken'
 };

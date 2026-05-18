@@ -105,6 +105,15 @@ export class AuthService {
     await this.prisma.refreshToken.deleteMany({ where: { userId } });
   }
 
+  async getMe(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, email: true, firstName: true, lastName: true, role: true, venueId: true },
+    });
+    if (!user) throw new UnauthorizedException();
+    return user;
+  }
+
   async logoutByToken(accessToken: string): Promise<void> {
     try {
       const payload = this.jwtService.verify(accessToken, {
