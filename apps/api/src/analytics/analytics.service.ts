@@ -10,7 +10,7 @@ export class AnalyticsService {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
-    const [todayOrders, activeSessions, allTimeTotals] = await Promise.all([
+    const [todayOrders, activeSessions, allTimeTotals, todaySessions, allTimeSessions] = await Promise.all([
       this.prisma.order.findMany({
         where: { venueId, createdAt: { gte: todayStart }, status: { not: 'CANCELLED' } },
         select: { totalAmount: true, status: true },
@@ -21,9 +21,17 @@ export class AnalyticsService {
         _sum: { totalAmount: true },
         _count: true,
       }),
+      this.prisma.session.aggregate({
+        where: { station: { venueId }, endTime: { gte: todayStart }, status: 'ENDED' },
+        _sum: { sessionCharge: true },
+      }),
+      this.prisma.session.aggregate({
+        where: { station: { venueId }, status: 'ENDED' },
+        _sum: { sessionCharge: true },
+      }),
     ]);
 
-    const todayRevenue = todayOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
+    const todayRevenue = todayOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0) + Number(todaySessions._sum.sessionCharge ?? 0);
     const todayOrderCount = todayOrders.length;
     const avgOrderValue = todayOrderCount > 0 ? todayRevenue / todayOrderCount : 0;
 
@@ -32,7 +40,7 @@ export class AnalyticsService {
       todayOrderCount,
       avgOrderValue: parseFloat(avgOrderValue.toFixed(2)),
       activeSessions,
-      allTimeRevenue: parseFloat(Number(allTimeTotals._sum.totalAmount ?? 0).toFixed(2)),
+      allTimeRevenue: parseFloat((Number(allTimeTotals._sum.totalAmount ?? 0) + Number(allTimeSessions._sum.sessionCharge ?? 0)).toFixed(2)),
       allTimeOrders: allTimeTotals._count,
     };
   }
@@ -43,10 +51,16 @@ export class AnalyticsService {
     since.setDate(since.getDate() - days + 1);
     since.setHours(0, 0, 0, 0);
 
-    const orders = await this.prisma.order.findMany({
-      where: { venueId, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
-      select: { totalAmount: true, createdAt: true },
-    });
+    const [orders, sessions] = await Promise.all([
+      this.prisma.order.findMany({
+        where: { venueId, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
+        select: { totalAmount: true, createdAt: true },
+      }),
+      this.prisma.session.findMany({
+        where: { station: { venueId }, endTime: { gte: since }, status: 'ENDED' },
+        select: { sessionCharge: true, endTime: true },
+      })
+    ]);
 
     // Group by date
     const map = new Map<string, number>();
@@ -59,6 +73,13 @@ export class AnalyticsService {
     for (const o of orders) {
       const key = o.createdAt.toISOString().split('T')[0];
       map.set(key, (map.get(key) ?? 0) + Number(o.totalAmount));
+    }
+    
+    for (const s of sessions) {
+      if (s.endTime) {
+        const key = s.endTime.toISOString().split('T')[0];
+        map.set(key, (map.get(key) ?? 0) + Number(s.sessionCharge ?? 0));
+      }
     }
 
     return Array.from(map.entries()).map(([date, revenue]) => ({

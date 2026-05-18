@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
-import { fetchOrders } from "@/lib/api";
+import { fetchOrders, fetchAnalyticsSummary } from "@/lib/api";
 import type { Order } from "@/types";
 
 const formatTime = (createdAt: string) => {
@@ -17,30 +17,30 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [stats, setStats] = useState([
     { label: "Aktif Siparişler", value: "0", icon: "📦", color: "blue" },
-    { label: "Günlük Gelir", value: "₺0", icon: "💰", color: "green" },
+    { label: "Günlük Toplam Gelir", value: "₺0", icon: "💰", color: "green" },
     { label: "Ortalama Sipariş", value: "₺0", icon: "📊", color: "purple" },
-    { label: "Toplam Sipariş", value: "0", icon: "🧾", color: "orange" },
+    { label: "Canlı İstasyonlar", value: "0", icon: "🎮", color: "orange" },
   ]);
 
   const load = useCallback(async () => {
     try {
       const venueId = localStorage.getItem("venueId") || "";
-      const data = await fetchOrders(venueId);
+      const [data, summary] = await Promise.all([
+        fetchOrders(venueId),
+        fetchAnalyticsSummary(venueId)
+      ]);
       setOrders(data.slice(0, 5));
 
       const active = data.filter((o) => o.status === "PENDING" || o.status === "PREPARING").length;
-      const validOrders = data.filter((o) => o.status !== "CANCELLED" && o.status !== "PENDING");
-      const revenue = validOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
-      const avg = validOrders.length > 0 ? revenue / validOrders.length : 0;
 
       setStats([
         { label: "Aktif Siparişler", value: String(active), icon: "📦", color: "blue" },
-        { label: "Günlük Gelir", value: `₺${revenue.toFixed(2)}`, icon: "💰", color: "green" },
-        { label: "Ortalama Sipariş", value: `₺${avg.toFixed(2)}`, icon: "📊", color: "purple" },
-        { label: "Toplam Sipariş", value: String(data.length), icon: "🧾", color: "orange" },
+        { label: "Günlük Toplam Gelir", value: `₺${summary.todayRevenue.toFixed(2)}`, icon: "💰", color: "green" },
+        { label: "Ortalama Sipariş", value: `₺${summary.avgOrderValue.toFixed(2)}`, icon: "📊", color: "purple" },
+        { label: "Canlı İstasyonlar", value: String(summary.activeSessions), icon: "🎮", color: "orange" },
       ]);
     } catch {
-      console.error("Failed to fetch orders");
+      console.error("Failed to fetch dashboard data");
     }
   }, []);
 
