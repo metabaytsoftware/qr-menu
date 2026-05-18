@@ -27,7 +27,8 @@ async function apiCall<T>(url: string, init?: RequestInit, useAuth: boolean = fa
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
-      throw new Error(`API error: ${res.status} - ${JSON.stringify(errorData)}`);
+      const msg = errorData.message || `API error: ${res.status}`;
+      throw new Error(Array.isArray(msg) ? msg[0] : msg);
     }
     return res.json() as Promise<T>;
   } catch (error: any) {

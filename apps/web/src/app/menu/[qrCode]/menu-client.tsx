@@ -65,8 +65,8 @@ export default function MenuClient({ qrCode }: { qrCode: string }) {
       setShowCart(false);
       setOrdered(true);
       setTimeout(() => setOrdered(false), 4000);
-    } catch {
-      alert("Sipariş gönderilemedi. Lütfen tekrar deneyin.");
+    } catch (err: any) {
+      alert(err.message || "Sipariş gönderilemedi. Lütfen tekrar deneyin.");
     } finally {
       setOrdering(false);
     }
