@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '@meta-repo/auth-api';
 import { SessionsService } from './sessions.service';
 import { StartSessionDto } from './dto/start-session.dto';
 
@@ -21,21 +22,25 @@ export class SessionsController {
     return this.service.getSessionBill(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   start(@Body() dto: StartSessionDto) {
     return this.service.start(dto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post(':id/pause')
   pause(@Param('id') id: string) {
     return this.service.pause(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post(':id/resume')
   resume(@Param('id') id: string) {
     return this.service.resume(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post(':id/end')
   end(@Param('id') id: string) {
     return this.service.end(id);

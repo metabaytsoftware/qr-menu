@@ -55,7 +55,7 @@ export function useCloudflareAuth() {
     fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => {});
     setUser(null);
     setIsAuthenticated(false);
-    window.location.href = '/.cloudflare-access/logout';
+    window.location.href = '/cdn-cgi/access/logout';
   };
 
   return {

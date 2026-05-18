@@ -10,7 +10,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useCloudflareAuth();
+  const { user, isAuthenticated, logout } = useCloudflareAuth();
   const [apiOnline, setApiOnline] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function AdminLayout({
   }, []);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     const params = new URLSearchParams(window.location.search);
     const fromQuery = params.get("venueId");
 
@@ -44,7 +45,7 @@ export default function AdminLayout({
         }
       })
       .catch((err) => console.error("Failed to sync venue id:", err));
-  }, []);
+  }, [isAuthenticated]);
 
 
   return (
@@ -101,13 +102,20 @@ export default function AdminLayout({
 
           <div className="p-6 border-t border-white/5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                 {user?.email?.charAt(0).toUpperCase() || "A"}
               </div>
-              <div>
-                <p className="text-sm font-bold">{user?.name || "Admin User"}</p>
-                <p className="text-xs text-zinc-500">{user?.email || "admin@venue.com"}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold truncate">{user?.name || "Admin User"}</p>
+                <p className="text-xs text-zinc-500 truncate">{user?.email || "admin@venue.com"}</p>
               </div>
+              <button
+                onClick={logout}
+                title="Çıkış Yap"
+                className="p-2 text-zinc-500 hover:text-red-400 transition-colors flex-shrink-0"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              </button>
             </div>
           </div>
         </aside>

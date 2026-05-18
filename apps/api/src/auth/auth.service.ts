@@ -102,9 +102,18 @@ export class AuthService {
   }
 
   async logout(userId: string): Promise<void> {
-    await this.prisma.refreshToken.deleteMany({
-      where: { userId },
-    });
+    await this.prisma.refreshToken.deleteMany({ where: { userId } });
+  }
+
+  async logoutByToken(accessToken: string): Promise<void> {
+    try {
+      const payload = this.jwtService.verify(accessToken, {
+        secret: this.configService.get('JWT_SECRET') || 'default_secret',
+      });
+      if (payload?.sub) {
+        await this.logout(payload.sub);
+      }
+    } catch {}
   }
 
   private async issueTokens(

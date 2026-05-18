@@ -1,12 +1,15 @@
-import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Get, Body, HttpCode, HttpStatus, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
-import { LoginDto, JwtAuthGuard, CurrentUser } from '@meta-repo/auth-api';
+import { LoginDto } from '@meta-repo/auth-api';
+import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Throttle({ global: { ttl: 60000, limit: 5 } })
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Body() dto: LoginDto) {
@@ -22,7 +25,27 @@ export class AuthController {
   @Post('cloudflare-login')
   @HttpCode(HttpStatus.OK)
   async cloudflareLogin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const email = req.headers['cf-access-authenticated-user-email'] as string;
+    const cfJwt = req.headers['cf-access-jwt-assertion'] as string;
+    const teamDomain = process.env.CF_ACCESS_TEAM_DOMAIN;
+    const aud = process.env.CF_ACCESS_AUD;
+
+    let email: string | undefined;
+
+    if (cfJwt && teamDomain && aud) {
+      try {
+        const JWKS = createRemoteJWKSet(
+          new URL(`https://${teamDomain}/cdn-cgi/access/certs`),
+        );
+        const { payload } = await jwtVerify(cfJwt, JWKS, { audience: aud });
+        email = payload['email'] as string;
+      } catch {
+        throw new UnauthorizedException('Cloudflare Access JWT doğrulanamadı');
+      }
+    } else {
+      // CF_ACCESS_TEAM_DOMAIN/AUD tanımlı değilse header'a geri dön (dev ortamı)
+      email = req.headers['cf-access-authenticated-user-email'] as string;
+    }
+
     if (!email) {
       throw new UnauthorizedException('Cloudflare Access kimliği bulunamadı');
     }
@@ -46,12 +69,18 @@ export class AuthController {
   }
 
   @Post('logout')
-  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async logout(@CurrentUser() user: any, @Res({ passthrough: true }) res: Response) {
-    await this.authService.logout(user.sub);
+  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    // Cookie temizle — JWT olsun ya da olmasın
     res.clearCookie('access_token');
     res.clearCookie('refresh_token');
+    // JWT varsa refresh token'ı DB'den de sil
+    const token = (req.cookies as Record<string, string>)?.access_token;
+    if (token) {
+      try {
+        await this.authService.logoutByToken(token);
+      } catch {}
+    }
   }
 
   @Get('cloudflare-user')

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   rewrites: async () => {
@@ -14,4 +15,15 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["localhost:3003", "192.168.1.115", "192.168.1.115:3003", "*"],
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  widenClientFileUpload: true,
+
+  // Proxy error events through Next.js to bypass ad-blockers
+  tunnelRoute: "/monitoring",
+
+  silent: !process.env.CI,
+});

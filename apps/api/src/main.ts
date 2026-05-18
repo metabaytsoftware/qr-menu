@@ -1,3 +1,12 @@
+import * as Sentry from '@sentry/nestjs';
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  enabled: process.env.NODE_ENV === 'production',
+  sendDefaultPii: true,
+  tracesSampleRate: 0.1,
+});
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
@@ -25,7 +34,7 @@ async function bootstrap() {
   }));
   app.useGlobalFilters(new PrismaExceptionFilter());
   app.enableCors({
-    origin: true,
+    origin: process.env.CORS_ORIGIN || 'https://qr-menu.fx8.io',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

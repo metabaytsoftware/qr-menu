@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
 import { InternalApiGuard } from './common/guards/internal-api.guard';
+import { CustomThrottlerGuard } from './common/guards/custom-throttler.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
@@ -18,7 +21,11 @@ import { VenuesModule } from './venues/venues.module';
 
 @Module({
   imports: [
+    SentryModule.forRoot(),
     ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot([
+      { name: 'global', ttl: 60000, limit: 200 },
+    ]),
     PrismaModule,
     MenuModule,
     OrdersModule,
@@ -35,7 +42,9 @@ import { VenuesModule } from './venues/venues.module';
   ],
   controllers: [],
   providers: [
+    { provide: APP_FILTER, useClass: SentryGlobalFilter },
     { provide: APP_GUARD, useClass: InternalApiGuard },
+    { provide: APP_GUARD, useClass: CustomThrottlerGuard },
   ],
 })
 export class AppModule {}
