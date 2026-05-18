@@ -90,7 +90,7 @@ export default function AdminDashboard() {
                     const statusColor = order.status === "PREPARING" ? "blue" : order.status === "PENDING" ? "orange" : "green";
                     return (
                       <tr key={order.id} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-all">
-                        <td className="px-6 py-4 font-bold text-blue-500">{order.station.name}</td>
+                        <td className="px-6 py-4 font-bold text-blue-500">{order.station?.name || "Tezgah / Hızlı Satış"}</td>
                         <td className="px-6 py-4 text-zinc-400 max-w-[160px] truncate">{order.items.map((i) => i.product.name).join(", ")}</td>
                         <td className="px-6 py-4 font-bold">₺{Number(order.totalAmount).toFixed(2)}</td>
                         <td className="px-6 py-4">

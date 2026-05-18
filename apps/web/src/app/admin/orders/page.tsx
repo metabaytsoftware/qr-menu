@@ -126,7 +126,7 @@ export default function OrdersPage() {
                   <tr key={order.id} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-all">
                     <td className="px-8 py-6">
                       <div className="font-mono text-xs text-zinc-500">{order.id.slice(-8).toUpperCase()}</div>
-                      <div className="text-blue-500 text-sm font-bold mt-0.5">{order.station.name}</div>
+                      <div className="text-blue-500 text-sm font-bold mt-0.5">{order.station?.name || "Tezgah / Hızlı Satış"}</div>
                     </td>
                     <td className="px-8 py-6">
                       <div className="text-zinc-400 max-w-[200px] truncate">{order.items.map((i) => i.product.name).join(", ")}</div>
