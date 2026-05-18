@@ -11,6 +11,7 @@ import {
   fetchSessionBill,
   addPayment,
   fetchOrders,
+  placeOrder,
 } from "@/lib/api";
 import type { Station, Session, SessionBill } from "@/types";
 
@@ -37,6 +38,7 @@ function SessionCard({
   const [startForm, setStartForm] = useState({ isBillLess: false, hourlyRate: "" });
   const [showStart, setShowStart] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
   const [payForm, setPayForm] = useState({ method: "CASH", amount: "", note: "" });
   const [payError, setPayError] = useState("");
   const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
@@ -101,10 +103,14 @@ function SessionCard({
     await loadSession();
   };
 
-  const handleEnd = async () => {
+  const handleEndClick = () => {
+    setShowSummary(true);
+  };
+
+  const confirmEnd = async () => {
     if (!session) return;
-    if (!confirm("Oturumu kapatmak istediğinize emin misiniz?")) return;
     await endSession(session.id);
+    setShowSummary(false);
     await loadSession();
     onRefresh();
   };
@@ -114,15 +120,23 @@ function SessionCard({
     if (!bill) return;
     setPayError("");
     try {
-      // Find the order to pay for (session's first unpaid order, or create a dummy flow)
       const orders = await fetchOrders(venueId);
-      const sessionOrders = orders.filter((o) => o.sessionId === session?.id && o.paymentStatus !== "PAID");
-      if (sessionOrders.length === 0) {
-        setPayError("Bu oturumda ödeme bekleyen sipariş yok.");
-        return;
+      const sessionOrders = orders.filter((o) => o.sessionId === session?.id);
+      let targetOrder = sessionOrders.find((o) => o.paymentStatus !== "PAID");
+      
+      if (!targetOrder) {
+        // Create a dummy order to hold the payment for session charge
+        const newOrder = await placeOrder({
+          stationId: station.id,
+          sessionId: session.id,
+          items: [],
+          notes: "Masa Ücreti / Kısmi Ödeme",
+        });
+        targetOrder = { id: newOrder.id } as any;
       }
+
       await addPayment({
-        orderId: sessionOrders[0].id,
+        orderId: targetOrder!.id,
         method: payForm.method as any,
         amount: parseFloat(payForm.amount),
         note: payForm.note || undefined,
@@ -259,7 +273,7 @@ function SessionCard({
                 ▶ Devam
               </button>
             )}
-            <button onClick={handleEnd} className="flex-1 py-2 bg-red-500/15 hover:bg-red-500/25 text-red-400 rounded-xl text-xs font-bold transition-all">
+            <button onClick={handleEndClick} className="flex-1 py-2 bg-red-500/15 hover:bg-red-500/25 text-red-400 rounded-xl text-xs font-bold transition-all">
               ⏹ Kapat
             </button>
           </div>
@@ -298,6 +312,72 @@ function SessionCard({
               </button>
             </form>
           )}
+        </div>
+      )}
+
+      {/* Checkout Summary Modal */}
+      {showSummary && session && bill && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="bg-zinc-900 border border-white/10 rounded-2xl w-full max-w-sm p-6 shadow-2xl">
+            <h3 className="text-xl font-bold mb-4 text-center">Masa Özeti</h3>
+            
+            <div className="space-y-3 mb-6 text-sm">
+              <div className="flex justify-between items-center bg-zinc-800/50 p-3 rounded-lg">
+                <span className="text-zinc-400">İstasyon</span>
+                <span className="font-bold">{station.name}</span>
+              </div>
+              <div className="flex justify-between items-center bg-zinc-800/50 p-3 rounded-lg">
+                <span className="text-zinc-400">Geçen Süre</span>
+                <span className="font-bold font-mono text-green-400">{formatDuration(elapsed)}</span>
+              </div>
+              <div className="flex justify-between items-center bg-zinc-800/50 p-3 rounded-lg">
+                <span className="text-zinc-400">Masa Ücreti</span>
+                <span className="font-bold">₺{bill.sessionCharge.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center bg-zinc-800/50 p-3 rounded-lg">
+                <span className="text-zinc-400">Adisyon Toplamı</span>
+                <span className="font-bold">₺{bill.foodTotal.toFixed(2)}</span>
+              </div>
+              
+              <div className="border-t border-white/10 my-2"></div>
+              
+              <div className="flex justify-between items-center p-2">
+                <span className="text-zinc-400">Genel Toplam</span>
+                <span className="font-bold">₺{bill.grandTotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center p-2">
+                <span className="text-zinc-400">Ödenen</span>
+                <span className="font-bold text-green-400">₺{bill.paidTotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-zinc-800 rounded-lg">
+                <span className="font-bold">Kalan Bakiye</span>
+                <span className={`font-black text-lg ${bill.remaining > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                  ₺{bill.remaining.toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            {bill.remaining > 0 && (
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                <p className="text-xs text-red-400 text-center">Dikkat: Masanın ödenmemiş bakiyesi var. Önce ödeme almanız önerilir.</p>
+              </div>
+            )}
+
+            <div className="flex gap-2">
+              <button 
+                onClick={confirmEnd}
+                className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-bold transition-all"
+              >
+                Kapat
+              </button>
+              <button 
+                onClick={() => setShowSummary(false)}
+                className="flex-1 py-3 bg-zinc-700 hover:bg-zinc-600 text-white rounded-xl text-sm font-bold transition-all"
+              >
+                İptal
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

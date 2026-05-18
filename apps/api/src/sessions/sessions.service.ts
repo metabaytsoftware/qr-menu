@@ -40,6 +40,7 @@ export class SessionsService {
         isBillLess: dto.isBillLess ?? false,
         hourlyRate: rate,
         status: 'ACTIVE',
+        startTime: new Date(),
       },
       include: { station: true },
     });
