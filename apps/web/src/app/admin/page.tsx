@@ -29,7 +29,7 @@ export default function AdminDashboard() {
       setOrders(data.slice(0, 5));
 
       const active = data.filter((o) => o.status === "PENDING" || o.status === "PREPARING").length;
-      const validOrders = data.filter((o) => o.status !== "CANCELLED");
+      const validOrders = data.filter((o) => o.status !== "CANCELLED" && o.status !== "PENDING");
       const revenue = validOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
       const avg = validOrders.length > 0 ? revenue / validOrders.length : 0;
 
