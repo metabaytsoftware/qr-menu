@@ -9022,7 +9022,7 @@ export namespace Prisma {
   export type OrderGroupByOutputType = {
     id: string
     venueId: string
-    stationId: string
+    stationId: string | null
     sessionId: string | null
     status: $Enums.OrderStatus
     isBillLess: boolean
@@ -9075,7 +9075,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     venue?: boolean | VenueDefaultArgs<ExtArgs>
-    station?: boolean | StationDefaultArgs<ExtArgs>
+    station?: boolean | Order$stationArgs<ExtArgs>
     session?: boolean | Order$sessionArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     payments?: boolean | Order$paymentsArgs<ExtArgs>
@@ -9100,7 +9100,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     venue?: boolean | VenueDefaultArgs<ExtArgs>
-    station?: boolean | StationDefaultArgs<ExtArgs>
+    station?: boolean | Order$stationArgs<ExtArgs>
     session?: boolean | Order$sessionArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
@@ -9125,7 +9125,7 @@ export namespace Prisma {
 
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     venue?: boolean | VenueDefaultArgs<ExtArgs>
-    station?: boolean | StationDefaultArgs<ExtArgs>
+    station?: boolean | Order$stationArgs<ExtArgs>
     session?: boolean | Order$sessionArgs<ExtArgs>
     items?: boolean | Order$itemsArgs<ExtArgs>
     payments?: boolean | Order$paymentsArgs<ExtArgs>
@@ -9133,7 +9133,7 @@ export namespace Prisma {
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     venue?: boolean | VenueDefaultArgs<ExtArgs>
-    station?: boolean | StationDefaultArgs<ExtArgs>
+    station?: boolean | Order$stationArgs<ExtArgs>
     session?: boolean | Order$sessionArgs<ExtArgs>
   }
 
@@ -9141,7 +9141,7 @@ export namespace Prisma {
     name: "Order"
     objects: {
       venue: Prisma.$VenuePayload<ExtArgs>
-      station: Prisma.$StationPayload<ExtArgs>
+      station: Prisma.$StationPayload<ExtArgs> | null
       session: Prisma.$SessionPayload<ExtArgs> | null
       items: Prisma.$OrderItemPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
@@ -9149,7 +9149,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       venueId: string
-      stationId: string
+      stationId: string | null
       sessionId: string | null
       status: $Enums.OrderStatus
       isBillLess: boolean
@@ -9528,7 +9528,7 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     venue<T extends VenueDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VenueDefaultArgs<ExtArgs>>): Prisma__VenueClient<$Result.GetResult<Prisma.$VenuePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    station<T extends StationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StationDefaultArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    station<T extends Order$stationArgs<ExtArgs> = {}>(args?: Subset<T, Order$stationArgs<ExtArgs>>): Prisma__StationClient<$Result.GetResult<Prisma.$StationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     session<T extends Order$sessionArgs<ExtArgs> = {}>(args?: Subset<T, Order$sessionArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     items<T extends Order$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany"> | Null>
     payments<T extends Order$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Order$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany"> | Null>
@@ -9892,6 +9892,21 @@ export namespace Prisma {
      * Filter which Orders to delete
      */
     where?: OrderWhereInput
+  }
+
+  /**
+   * Order.station
+   */
+  export type Order$stationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Station
+     */
+    select?: StationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StationInclude<ExtArgs> | null
+    where?: StationWhereInput
   }
 
   /**
@@ -17659,7 +17674,7 @@ export namespace Prisma {
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: StringFilter<"Order"> | string
     venueId?: StringFilter<"Order"> | string
-    stationId?: StringFilter<"Order"> | string
+    stationId?: StringNullableFilter<"Order"> | string | null
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
@@ -17674,7 +17689,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     venue?: XOR<VenueRelationFilter, VenueWhereInput>
-    station?: XOR<StationRelationFilter, StationWhereInput>
+    station?: XOR<StationNullableRelationFilter, StationWhereInput> | null
     session?: XOR<SessionNullableRelationFilter, SessionWhereInput> | null
     items?: OrderItemListRelationFilter
     payments?: PaymentListRelationFilter
@@ -17683,7 +17698,7 @@ export namespace Prisma {
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
     venueId?: SortOrder
-    stationId?: SortOrder
+    stationId?: SortOrderInput | SortOrder
     sessionId?: SortOrderInput | SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
@@ -17710,7 +17725,7 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     venueId?: StringFilter<"Order"> | string
-    stationId?: StringFilter<"Order"> | string
+    stationId?: StringNullableFilter<"Order"> | string | null
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
@@ -17725,7 +17740,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     venue?: XOR<VenueRelationFilter, VenueWhereInput>
-    station?: XOR<StationRelationFilter, StationWhereInput>
+    station?: XOR<StationNullableRelationFilter, StationWhereInput> | null
     session?: XOR<SessionNullableRelationFilter, SessionWhereInput> | null
     items?: OrderItemListRelationFilter
     payments?: PaymentListRelationFilter
@@ -17734,7 +17749,7 @@ export namespace Prisma {
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
     venueId?: SortOrder
-    stationId?: SortOrder
+    stationId?: SortOrderInput | SortOrder
     sessionId?: SortOrderInput | SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
@@ -17761,7 +17776,7 @@ export namespace Prisma {
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Order"> | string
     venueId?: StringWithAggregatesFilter<"Order"> | string
-    stationId?: StringWithAggregatesFilter<"Order"> | string
+    stationId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     sessionId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolWithAggregatesFilter<"Order"> | boolean
@@ -18836,7 +18851,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     venue: VenueCreateNestedOneWithoutOrdersInput
-    station: StationCreateNestedOneWithoutOrdersInput
+    station?: StationCreateNestedOneWithoutOrdersInput
     session?: SessionCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
@@ -18845,7 +18860,7 @@ export namespace Prisma {
   export type OrderUncheckedCreateInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -18878,7 +18893,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneRequiredWithoutOrdersNestedInput
-    station?: StationUpdateOneRequiredWithoutOrdersNestedInput
+    station?: StationUpdateOneWithoutOrdersNestedInput
     session?: SessionUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
@@ -18887,7 +18902,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -18908,7 +18923,7 @@ export namespace Prisma {
   export type OrderCreateManyInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -18943,7 +18958,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -20176,6 +20191,11 @@ export namespace Prisma {
     not?: NestedEnumPaymentStatusFilter<$PrismaModel> | $Enums.PaymentStatus
   }
 
+  export type StationNullableRelationFilter = {
+    is?: StationWhereInput | null
+    isNot?: StationWhereInput | null
+  }
+
   export type SessionNullableRelationFilter = {
     is?: SessionWhereInput | null
     isNot?: SessionWhereInput | null
@@ -21257,10 +21277,12 @@ export namespace Prisma {
     update?: XOR<XOR<VenueUpdateToOneWithWhereWithoutOrdersInput, VenueUpdateWithoutOrdersInput>, VenueUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type StationUpdateOneRequiredWithoutOrdersNestedInput = {
+  export type StationUpdateOneWithoutOrdersNestedInput = {
     create?: XOR<StationCreateWithoutOrdersInput, StationUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: StationCreateOrConnectWithoutOrdersInput
     upsert?: StationUpsertWithoutOrdersInput
+    disconnect?: StationWhereInput | boolean
+    delete?: StationWhereInput | boolean
     connect?: StationWhereUniqueInput
     update?: XOR<XOR<StationUpdateToOneWithWhereWithoutOrdersInput, StationUpdateWithoutOrdersInput>, StationUncheckedUpdateWithoutOrdersInput>
   }
@@ -22013,7 +22035,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    station: StationCreateNestedOneWithoutOrdersInput
+    station?: StationCreateNestedOneWithoutOrdersInput
     session?: SessionCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
@@ -22021,7 +22043,7 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutVenueInput = {
     id?: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -22238,7 +22260,7 @@ export namespace Prisma {
     NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
     id?: StringFilter<"Order"> | string
     venueId?: StringFilter<"Order"> | string
-    stationId?: StringFilter<"Order"> | string
+    stationId?: StringNullableFilter<"Order"> | string | null
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
@@ -22691,7 +22713,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     venue: VenueCreateNestedOneWithoutOrdersInput
-    station: StationCreateNestedOneWithoutOrdersInput
+    station?: StationCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
   }
@@ -22699,7 +22721,7 @@ export namespace Prisma {
   export type OrderUncheckedCreateWithoutSessionInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
@@ -23481,7 +23503,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     venue: VenueCreateNestedOneWithoutOrdersInput
-    station: StationCreateNestedOneWithoutOrdersInput
+    station?: StationCreateNestedOneWithoutOrdersInput
     session?: SessionCreateNestedOneWithoutOrdersInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
   }
@@ -23489,7 +23511,7 @@ export namespace Prisma {
   export type OrderUncheckedCreateWithoutItemsInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -23568,7 +23590,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneRequiredWithoutOrdersNestedInput
-    station?: StationUpdateOneRequiredWithoutOrdersNestedInput
+    station?: StationUpdateOneWithoutOrdersNestedInput
     session?: SessionUpdateOneWithoutOrdersNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
   }
@@ -23576,7 +23598,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -23645,7 +23667,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     venue: VenueCreateNestedOneWithoutOrdersInput
-    station: StationCreateNestedOneWithoutOrdersInput
+    station?: StationCreateNestedOneWithoutOrdersInput
     session?: SessionCreateNestedOneWithoutOrdersInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
@@ -23653,7 +23675,7 @@ export namespace Prisma {
   export type OrderUncheckedCreateWithoutPaymentsInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -23701,7 +23723,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneRequiredWithoutOrdersNestedInput
-    station?: StationUpdateOneRequiredWithoutOrdersNestedInput
+    station?: StationUpdateOneWithoutOrdersNestedInput
     session?: SessionUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
@@ -23709,7 +23731,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateWithoutPaymentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -24104,7 +24126,7 @@ export namespace Prisma {
 
   export type OrderCreateManyVenueInput = {
     id?: string
-    stationId: string
+    stationId?: string | null
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
@@ -24266,7 +24288,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    station?: StationUpdateOneRequiredWithoutOrdersNestedInput
+    station?: StationUpdateOneWithoutOrdersNestedInput
     session?: SessionUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
@@ -24274,7 +24296,7 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutVenueInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -24294,7 +24316,7 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutVenueInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
@@ -24526,7 +24548,7 @@ export namespace Prisma {
   export type OrderCreateManySessionInput = {
     id?: string
     venueId: string
-    stationId: string
+    stationId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
@@ -24556,7 +24578,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneRequiredWithoutOrdersNestedInput
-    station?: StationUpdateOneRequiredWithoutOrdersNestedInput
+    station?: StationUpdateOneWithoutOrdersNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
   }
@@ -24564,7 +24586,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateWithoutSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24584,7 +24606,7 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyWithoutSessionInput = {
     id?: StringFieldUpdateOperationsInput | string
     venueId?: StringFieldUpdateOperationsInput | string
-    stationId?: StringFieldUpdateOperationsInput | string
+    stationId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

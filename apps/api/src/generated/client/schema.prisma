@@ -170,7 +170,7 @@ enum PaymentStatus {
 model Order {
   id            String        @id @default(cuid())
   venueId       String        @map("venue_id")
-  stationId     String        @map("station_id")
+  stationId     String?       @map("station_id")
   sessionId     String?       @map("session_id")
   status        OrderStatus   @default(PENDING)
   isBillLess    Boolean       @default(false) @map("is_bill_less")
@@ -186,7 +186,7 @@ model Order {
   updatedAt     DateTime      @updatedAt @map("updated_at")
 
   venue    Venue       @relation(fields: [venueId], references: [id], onDelete: Cascade)
-  station  Station     @relation(fields: [stationId], references: [id], onDelete: Cascade)
+  station  Station?    @relation(fields: [stationId], references: [id], onDelete: Cascade)
   session  Session?    @relation(fields: [sessionId], references: [id])
   items    OrderItem[]
   payments Payment[]

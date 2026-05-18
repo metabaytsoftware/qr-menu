@@ -11,8 +11,9 @@ export class OrderItemDto {
 }
 
 export class CreateOrderDto {
+  @IsOptional()
   @IsString()
-  public stationId!: string;
+  public stationId?: string;
 
   @IsArray()
   @ValidateNested({ each: true })

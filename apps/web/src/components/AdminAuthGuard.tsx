@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/useAuth';
 
-const ADMIN_ROLES = ['OWNER', 'MANAGER'];
+const ADMIN_ROLES = ['OWNER', 'MANAGER', 'CASHIER'];
 
 export function AdminAuthGuard({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isLoading, login, logout } = useAuth();

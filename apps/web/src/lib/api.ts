@@ -51,7 +51,8 @@ export function fetchMenu(stationQr: string): Promise<MenuResponse> {
 }
 
 export function placeOrder(payload: {
-  stationId: string;
+  venueId?: string;
+  stationId?: string;
   items: { productId: string; quantity: number }[];
   notes?: string;
   sessionId?: string;
