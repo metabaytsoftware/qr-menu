@@ -84,8 +84,14 @@ export class SessionsService {
 
     const endTime = new Date();
     const startTime = session.startTime;
+    let finalTotalPaused = session.totalPaused;
+    
+    if (session.status === 'PAUSED' && session.pausedAt) {
+      finalTotalPaused += Math.floor((endTime.getTime() - session.pausedAt.getTime()) / 1000);
+    }
+
     const totalElapsedSeconds =
-      Math.floor((endTime.getTime() - startTime.getTime()) / 1000) - session.totalPaused;
+      Math.floor((endTime.getTime() - startTime.getTime()) / 1000) - finalTotalPaused;
 
     const hours = Math.max(0, totalElapsedSeconds / 3600);
     const sessionCharge = parseFloat((hours * Number(session.hourlyRate)).toFixed(2));
@@ -113,13 +119,20 @@ export class SessionsService {
     if (!session) throw new NotFoundException('Session not found');
 
     const now = session.endTime ?? new Date();
+    let finalTotalPaused = session.totalPaused;
+    
+    if (session.status === 'PAUSED' && session.pausedAt && !session.endTime) {
+      finalTotalPaused += Math.floor((now.getTime() - session.pausedAt.getTime()) / 1000);
+    }
+
     const totalElapsedSeconds =
-      Math.floor((now.getTime() - session.startTime.getTime()) / 1000) - session.totalPaused;
+      Math.floor((now.getTime() - session.startTime.getTime()) / 1000) - finalTotalPaused;
     const hours = Math.max(0, totalElapsedSeconds / 3600);
     const sessionCharge = parseFloat((hours * Number(session.hourlyRate)).toFixed(2));
 
-    const foodTotal = session.orders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
-    const paidTotal = session.orders.reduce(
+    const validOrders = session.orders.filter(o => o.status !== 'CANCELLED');
+    const foodTotal = validOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
+    const paidTotal = validOrders.reduce(
       (sum, o) => sum + o.payments.reduce((ps, p) => ps + Number(p.amount), 0),
       0,
     );

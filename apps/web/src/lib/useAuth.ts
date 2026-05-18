@@ -18,7 +18,15 @@ export function useAuth() {
 
   const checkAuth = useCallback(async () => {
     try {
-      const res = await fetch('/api/auth/me', { credentials: 'include' });
+      let res = await fetch('/api/auth/me', { credentials: 'include' });
+      
+      if (!res.ok && res.status === 401) {
+        const refreshRes = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'include' });
+        if (refreshRes.ok) {
+          res = await fetch('/api/auth/me', { credentials: 'include' });
+        }
+      }
+
       if (res.ok) {
         const data: AuthUser = await res.json();
         setUser(data);

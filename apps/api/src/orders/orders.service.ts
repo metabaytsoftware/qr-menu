@@ -13,6 +13,14 @@ export class OrdersService {
     });
     if (!station) throw new NotFoundException('Station not found');
 
+    const activeSession = await this.prisma.session.findFirst({
+      where: { stationId: dto.stationId, status: 'ACTIVE' },
+    });
+
+    if (!activeSession) {
+      throw new BadRequestException('Sipariş verebilmek için istasyonda oturum başlatılmış olmalıdır');
+    }
+
     const productIds = dto.items.map((i) => i.productId);
     const products = await this.prisma.product.findMany({
       where: { id: { in: productIds }, venueId: station.venueId, isActive: true },
@@ -41,7 +49,7 @@ export class OrdersService {
       data: {
         venueId: station.venueId,
         stationId: dto.stationId,
-        sessionId: dto.sessionId ?? null,
+        sessionId: dto.sessionId ?? activeSession.id,
         isBillLess: dto.isBillLess ?? false,
         notes: dto.notes,
         subtotal,

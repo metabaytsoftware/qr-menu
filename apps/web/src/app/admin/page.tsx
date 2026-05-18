@@ -29,8 +29,9 @@ export default function AdminDashboard() {
       setOrders(data.slice(0, 5));
 
       const active = data.filter((o) => o.status === "PENDING" || o.status === "PREPARING").length;
-      const revenue = data.reduce((sum, o) => sum + Number(o.totalAmount), 0);
-      const avg = data.length > 0 ? revenue / data.length : 0;
+      const validOrders = data.filter((o) => o.status !== "CANCELLED");
+      const revenue = validOrders.reduce((sum, o) => sum + Number(o.totalAmount), 0);
+      const avg = validOrders.length > 0 ? revenue / validOrders.length : 0;
 
       setStats([
         { label: "Aktif Siparişler", value: String(active), icon: "📦", color: "blue" },
