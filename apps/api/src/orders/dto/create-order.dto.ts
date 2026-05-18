@@ -41,4 +41,8 @@ export class CreateOrderDto {
   @IsOptional()
   @IsNumber()
   public serviceCharge?: number;
+
+  @IsOptional()
+  @IsString()
+  public venueId?: string;
 }
