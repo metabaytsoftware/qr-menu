@@ -26,22 +26,24 @@ export default function AdminLayout({
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const fromQuery = params.get("venueId");
-    if (fromQuery) {
-      localStorage.setItem("venueId", fromQuery);
-      return;
-    }
-    const stored = localStorage.getItem("venueId");
-    if (!stored || stored.length <= 10) {
-      localStorage.removeItem("venueId");
-      fetch("/api/venues")
-        .then((r) => r.json())
-        .then((venues: { id: string }[]) => {
-          if (venues?.[0]?.id) {
-            localStorage.setItem("venueId", venues[0].id);
-          }
-        })
-        .catch(() => {});
-    }
+
+    fetch("/api/venues")
+      .then((r) => r.json())
+      .then((venues: { id: string }[]) => {
+        if (!venues || venues.length === 0) return;
+
+        const stored = localStorage.getItem("venueId") ?? "";
+        const targetId = fromQuery || stored;
+
+        const isValid = venues.some((v) => v.id === targetId);
+
+        if (isValid && targetId) {
+          localStorage.setItem("venueId", targetId);
+        } else if (venues[0]?.id) {
+          localStorage.setItem("venueId", venues[0].id);
+        }
+      })
+      .catch((err) => console.error("Failed to sync venue id:", err));
   }, []);
 
 

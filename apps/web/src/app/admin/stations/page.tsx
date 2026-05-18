@@ -49,16 +49,17 @@ export default function StationsPage() {
   const [venueId, setVenueId] = useState("");
 
   useEffect(() => {
-    const stored = localStorage.getItem("venueId") ?? "";
-    // Accept any non-empty stored venueId (cuid format, not the legacy hardcoded value)
-    if (stored && stored.length > 10) {
-      setVenueId(stored);
-      return;
-    }
     fetch("/api/venues")
       .then((r) => r.json())
       .then((venues: { id: string }[]) => {
-        if (venues?.[0]?.id) {
+        if (!venues || venues.length === 0) return;
+
+        const stored = localStorage.getItem("venueId") ?? "";
+        const isValid = venues.some((v) => v.id === stored);
+
+        if (isValid && stored) {
+          setVenueId(stored);
+        } else if (venues[0]?.id) {
           localStorage.setItem("venueId", venues[0].id);
           setVenueId(venues[0].id);
         }
