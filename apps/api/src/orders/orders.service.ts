@@ -14,7 +14,7 @@ export class OrdersService {
     if (!station) throw new NotFoundException('Station not found');
 
     const activeSession = await this.prisma.session.findFirst({
-      where: { stationId: dto.stationId, status: 'ACTIVE' },
+      where: { stationId: dto.stationId, status: { in: ['ACTIVE', 'PAUSED'] } },
     });
 
     if (!activeSession) {

@@ -17,7 +17,7 @@ export class SessionsService {
 
   async findActive(stationId: string) {
     return this.prisma.session.findFirst({
-      where: { stationId, status: 'ACTIVE' },
+      where: { stationId, status: { in: ['ACTIVE', 'PAUSED'] } },
       include: { orders: { include: { items: { include: { product: true } }, payments: true } } },
     });
   }
@@ -29,7 +29,7 @@ export class SessionsService {
     if (!station) throw new NotFoundException('Station not found');
 
     const existing = await this.prisma.session.findFirst({
-      where: { stationId: dto.stationId, status: 'ACTIVE' },
+      where: { stationId: dto.stationId, status: { in: ['ACTIVE', 'PAUSED'] } },
     });
     if (existing) throw new BadRequestException('Station already has an active session');
 
