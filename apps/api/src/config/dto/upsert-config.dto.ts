@@ -2,10 +2,10 @@ import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpsertConfigDto {
   @IsString()
-  key: string;
+  key!: string;
 
   @IsString()
-  value: string;
+  value!: string;
 
   @IsOptional()
   @IsBoolean()
