@@ -73,6 +73,16 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
+/**
+ * Model SystemConfig
+ * 
+ */
+export type SystemConfig = $Result.DefaultSelection<Prisma.$SystemConfigPayload>
+/**
+ * Model UserNotificationPreferences
+ * 
+ */
+export type UserNotificationPreferences = $Result.DefaultSelection<Prisma.$UserNotificationPreferencesPayload>
 
 /**
  * Enums
@@ -419,6 +429,26 @@ export class PrismaClient<
     * ```
     */
   get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs>;
+
+  /**
+   * `prisma.systemConfig`: Exposes CRUD operations for the **SystemConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemConfigs
+    * const systemConfigs = await prisma.systemConfig.findMany()
+    * ```
+    */
+  get systemConfig(): Prisma.SystemConfigDelegate<ExtArgs>;
+
+  /**
+   * `prisma.userNotificationPreferences`: Exposes CRUD operations for the **UserNotificationPreferences** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserNotificationPreferences
+    * const userNotificationPreferences = await prisma.userNotificationPreferences.findMany()
+    * ```
+    */
+  get userNotificationPreferences(): Prisma.UserNotificationPreferencesDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -871,7 +901,9 @@ export namespace Prisma {
     Payment: 'Payment',
     RolePermission: 'RolePermission',
     User: 'User',
-    RefreshToken: 'RefreshToken'
+    RefreshToken: 'RefreshToken',
+    SystemConfig: 'SystemConfig',
+    UserNotificationPreferences: 'UserNotificationPreferences'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -887,7 +919,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "venue" | "station" | "tariff" | "session" | "category" | "product" | "order" | "orderItem" | "payment" | "rolePermission" | "user" | "refreshToken"
+      modelProps: "venue" | "station" | "tariff" | "session" | "category" | "product" | "order" | "orderItem" | "payment" | "rolePermission" | "user" | "refreshToken" | "systemConfig" | "userNotificationPreferences"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1728,6 +1760,146 @@ export namespace Prisma {
           count: {
             args: Prisma.RefreshTokenCountArgs<ExtArgs>
             result: $Utils.Optional<RefreshTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemConfig: {
+        payload: Prisma.$SystemConfigPayload<ExtArgs>
+        fields: Prisma.SystemConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          findMany: {
+            args: Prisma.SystemConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>[]
+          }
+          create: {
+            args: Prisma.SystemConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          createMany: {
+            args: Prisma.SystemConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          update: {
+            args: Prisma.SystemConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SystemConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemConfig>
+          }
+          groupBy: {
+            args: Prisma.SystemConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserNotificationPreferences: {
+        payload: Prisma.$UserNotificationPreferencesPayload<ExtArgs>
+        fields: Prisma.UserNotificationPreferencesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserNotificationPreferencesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserNotificationPreferencesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          findFirst: {
+            args: Prisma.UserNotificationPreferencesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserNotificationPreferencesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          findMany: {
+            args: Prisma.UserNotificationPreferencesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>[]
+          }
+          create: {
+            args: Prisma.UserNotificationPreferencesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          createMany: {
+            args: Prisma.UserNotificationPreferencesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserNotificationPreferencesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>[]
+          }
+          delete: {
+            args: Prisma.UserNotificationPreferencesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          update: {
+            args: Prisma.UserNotificationPreferencesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserNotificationPreferencesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserNotificationPreferencesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserNotificationPreferencesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserNotificationPreferencesPayload>
+          }
+          aggregate: {
+            args: Prisma.UserNotificationPreferencesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserNotificationPreferences>
+          }
+          groupBy: {
+            args: Prisma.UserNotificationPreferencesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserNotificationPreferencesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserNotificationPreferencesCountArgs<ExtArgs>
+            result: $Utils.Optional<UserNotificationPreferencesCountAggregateOutputType> | number
           }
         }
       }
@@ -12864,6 +13036,7 @@ export namespace Prisma {
     updatedAt?: boolean
     venue?: boolean | User$venueArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
+    notificationPrefs?: boolean | User$notificationPrefsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -12897,6 +13070,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     venue?: boolean | User$venueArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
+    notificationPrefs?: boolean | User$notificationPrefsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12908,6 +13082,7 @@ export namespace Prisma {
     objects: {
       venue: Prisma.$VenuePayload<ExtArgs> | null
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+      notificationPrefs: Prisma.$UserNotificationPreferencesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13286,6 +13461,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     venue<T extends User$venueArgs<ExtArgs> = {}>(args?: Subset<T, User$venueArgs<ExtArgs>>): Prisma__VenueClient<$Result.GetResult<Prisma.$VenuePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany"> | Null>
+    notificationPrefs<T extends User$notificationPrefsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationPrefsArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13675,6 +13851,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RefreshTokenScalarFieldEnum | RefreshTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.notificationPrefs
+   */
+  export type User$notificationPrefsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    where?: UserNotificationPreferencesWhereInput
   }
 
   /**
@@ -14626,6 +14817,1861 @@ export namespace Prisma {
 
 
   /**
+   * Model SystemConfig
+   */
+
+  export type AggregateSystemConfig = {
+    _count: SystemConfigCountAggregateOutputType | null
+    _min: SystemConfigMinAggregateOutputType | null
+    _max: SystemConfigMaxAggregateOutputType | null
+  }
+
+  export type SystemConfigMinAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+    isSecret: boolean | null
+    description: string | null
+    updatedAt: Date | null
+  }
+
+  export type SystemConfigMaxAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+    isSecret: boolean | null
+    description: string | null
+    updatedAt: Date | null
+  }
+
+  export type SystemConfigCountAggregateOutputType = {
+    id: number
+    key: number
+    value: number
+    isSecret: number
+    description: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SystemConfigMinAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    isSecret?: true
+    description?: true
+    updatedAt?: true
+  }
+
+  export type SystemConfigMaxAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    isSecret?: true
+    description?: true
+    updatedAt?: true
+  }
+
+  export type SystemConfigCountAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    isSecret?: true
+    description?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SystemConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemConfig to aggregate.
+     */
+    where?: SystemConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemConfigs to fetch.
+     */
+    orderBy?: SystemConfigOrderByWithRelationInput | SystemConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemConfigs
+    **/
+    _count?: true | SystemConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemConfigMaxAggregateInputType
+  }
+
+  export type GetSystemConfigAggregateType<T extends SystemConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemConfig[P]>
+      : GetScalarType<T[P], AggregateSystemConfig[P]>
+  }
+
+
+
+
+  export type SystemConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemConfigWhereInput
+    orderBy?: SystemConfigOrderByWithAggregationInput | SystemConfigOrderByWithAggregationInput[]
+    by: SystemConfigScalarFieldEnum[] | SystemConfigScalarFieldEnum
+    having?: SystemConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemConfigCountAggregateInputType | true
+    _min?: SystemConfigMinAggregateInputType
+    _max?: SystemConfigMaxAggregateInputType
+  }
+
+  export type SystemConfigGroupByOutputType = {
+    id: string
+    key: string
+    value: string
+    isSecret: boolean
+    description: string | null
+    updatedAt: Date
+    _count: SystemConfigCountAggregateOutputType | null
+    _min: SystemConfigMinAggregateOutputType | null
+    _max: SystemConfigMaxAggregateOutputType | null
+  }
+
+  type GetSystemConfigGroupByPayload<T extends SystemConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    isSecret?: boolean
+    description?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemConfig"]>
+
+  export type SystemConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    isSecret?: boolean
+    description?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemConfig"]>
+
+  export type SystemConfigSelectScalar = {
+    id?: boolean
+    key?: boolean
+    value?: boolean
+    isSecret?: boolean
+    description?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $SystemConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemConfig"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      key: string
+      value: string
+      isSecret: boolean
+      description: string | null
+      updatedAt: Date
+    }, ExtArgs["result"]["systemConfig"]>
+    composites: {}
+  }
+
+  type SystemConfigGetPayload<S extends boolean | null | undefined | SystemConfigDefaultArgs> = $Result.GetResult<Prisma.$SystemConfigPayload, S>
+
+  type SystemConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SystemConfigFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SystemConfigCountAggregateInputType | true
+    }
+
+  export interface SystemConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemConfig'], meta: { name: 'SystemConfig' } }
+    /**
+     * Find zero or one SystemConfig that matches the filter.
+     * @param {SystemConfigFindUniqueArgs} args - Arguments to find a SystemConfig
+     * @example
+     * // Get one SystemConfig
+     * const systemConfig = await prisma.systemConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemConfigFindUniqueArgs>(args: SelectSubset<T, SystemConfigFindUniqueArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SystemConfig that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SystemConfigFindUniqueOrThrowArgs} args - Arguments to find a SystemConfig
+     * @example
+     * // Get one SystemConfig
+     * const systemConfig = await prisma.systemConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SystemConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigFindFirstArgs} args - Arguments to find a SystemConfig
+     * @example
+     * // Get one SystemConfig
+     * const systemConfig = await prisma.systemConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemConfigFindFirstArgs>(args?: SelectSubset<T, SystemConfigFindFirstArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SystemConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigFindFirstOrThrowArgs} args - Arguments to find a SystemConfig
+     * @example
+     * // Get one SystemConfig
+     * const systemConfig = await prisma.systemConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SystemConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemConfigs
+     * const systemConfigs = await prisma.systemConfig.findMany()
+     * 
+     * // Get first 10 SystemConfigs
+     * const systemConfigs = await prisma.systemConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemConfigWithIdOnly = await prisma.systemConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemConfigFindManyArgs>(args?: SelectSubset<T, SystemConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SystemConfig.
+     * @param {SystemConfigCreateArgs} args - Arguments to create a SystemConfig.
+     * @example
+     * // Create one SystemConfig
+     * const SystemConfig = await prisma.systemConfig.create({
+     *   data: {
+     *     // ... data to create a SystemConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemConfigCreateArgs>(args: SelectSubset<T, SystemConfigCreateArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SystemConfigs.
+     * @param {SystemConfigCreateManyArgs} args - Arguments to create many SystemConfigs.
+     * @example
+     * // Create many SystemConfigs
+     * const systemConfig = await prisma.systemConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemConfigCreateManyArgs>(args?: SelectSubset<T, SystemConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemConfigs and returns the data saved in the database.
+     * @param {SystemConfigCreateManyAndReturnArgs} args - Arguments to create many SystemConfigs.
+     * @example
+     * // Create many SystemConfigs
+     * const systemConfig = await prisma.systemConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemConfigs and only return the `id`
+     * const systemConfigWithIdOnly = await prisma.systemConfig.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SystemConfig.
+     * @param {SystemConfigDeleteArgs} args - Arguments to delete one SystemConfig.
+     * @example
+     * // Delete one SystemConfig
+     * const SystemConfig = await prisma.systemConfig.delete({
+     *   where: {
+     *     // ... filter to delete one SystemConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemConfigDeleteArgs>(args: SelectSubset<T, SystemConfigDeleteArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SystemConfig.
+     * @param {SystemConfigUpdateArgs} args - Arguments to update one SystemConfig.
+     * @example
+     * // Update one SystemConfig
+     * const systemConfig = await prisma.systemConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemConfigUpdateArgs>(args: SelectSubset<T, SystemConfigUpdateArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SystemConfigs.
+     * @param {SystemConfigDeleteManyArgs} args - Arguments to filter SystemConfigs to delete.
+     * @example
+     * // Delete a few SystemConfigs
+     * const { count } = await prisma.systemConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemConfigDeleteManyArgs>(args?: SelectSubset<T, SystemConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemConfigs
+     * const systemConfig = await prisma.systemConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemConfigUpdateManyArgs>(args: SelectSubset<T, SystemConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SystemConfig.
+     * @param {SystemConfigUpsertArgs} args - Arguments to update or create a SystemConfig.
+     * @example
+     * // Update or create a SystemConfig
+     * const systemConfig = await prisma.systemConfig.upsert({
+     *   create: {
+     *     // ... data to create a SystemConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemConfigUpsertArgs>(args: SelectSubset<T, SystemConfigUpsertArgs<ExtArgs>>): Prisma__SystemConfigClient<$Result.GetResult<Prisma.$SystemConfigPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SystemConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigCountArgs} args - Arguments to filter SystemConfigs to count.
+     * @example
+     * // Count the number of SystemConfigs
+     * const count = await prisma.systemConfig.count({
+     *   where: {
+     *     // ... the filter for the SystemConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemConfigCountArgs>(
+      args?: Subset<T, SystemConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemConfigAggregateArgs>(args: Subset<T, SystemConfigAggregateArgs>): Prisma.PrismaPromise<GetSystemConfigAggregateType<T>>
+
+    /**
+     * Group by SystemConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemConfigGroupByArgs['orderBy'] }
+        : { orderBy?: SystemConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemConfig model
+   */
+  readonly fields: SystemConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemConfig model
+   */ 
+  interface SystemConfigFieldRefs {
+    readonly id: FieldRef<"SystemConfig", 'String'>
+    readonly key: FieldRef<"SystemConfig", 'String'>
+    readonly value: FieldRef<"SystemConfig", 'String'>
+    readonly isSecret: FieldRef<"SystemConfig", 'Boolean'>
+    readonly description: FieldRef<"SystemConfig", 'String'>
+    readonly updatedAt: FieldRef<"SystemConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemConfig findUnique
+   */
+  export type SystemConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter, which SystemConfig to fetch.
+     */
+    where: SystemConfigWhereUniqueInput
+  }
+
+  /**
+   * SystemConfig findUniqueOrThrow
+   */
+  export type SystemConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter, which SystemConfig to fetch.
+     */
+    where: SystemConfigWhereUniqueInput
+  }
+
+  /**
+   * SystemConfig findFirst
+   */
+  export type SystemConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter, which SystemConfig to fetch.
+     */
+    where?: SystemConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemConfigs to fetch.
+     */
+    orderBy?: SystemConfigOrderByWithRelationInput | SystemConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemConfigs.
+     */
+    cursor?: SystemConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemConfigs.
+     */
+    distinct?: SystemConfigScalarFieldEnum | SystemConfigScalarFieldEnum[]
+  }
+
+  /**
+   * SystemConfig findFirstOrThrow
+   */
+  export type SystemConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter, which SystemConfig to fetch.
+     */
+    where?: SystemConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemConfigs to fetch.
+     */
+    orderBy?: SystemConfigOrderByWithRelationInput | SystemConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemConfigs.
+     */
+    cursor?: SystemConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemConfigs.
+     */
+    distinct?: SystemConfigScalarFieldEnum | SystemConfigScalarFieldEnum[]
+  }
+
+  /**
+   * SystemConfig findMany
+   */
+  export type SystemConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter, which SystemConfigs to fetch.
+     */
+    where?: SystemConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemConfigs to fetch.
+     */
+    orderBy?: SystemConfigOrderByWithRelationInput | SystemConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemConfigs.
+     */
+    cursor?: SystemConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemConfigs.
+     */
+    skip?: number
+    distinct?: SystemConfigScalarFieldEnum | SystemConfigScalarFieldEnum[]
+  }
+
+  /**
+   * SystemConfig create
+   */
+  export type SystemConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SystemConfig.
+     */
+    data: XOR<SystemConfigCreateInput, SystemConfigUncheckedCreateInput>
+  }
+
+  /**
+   * SystemConfig createMany
+   */
+  export type SystemConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemConfigs.
+     */
+    data: SystemConfigCreateManyInput | SystemConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemConfig createManyAndReturn
+   */
+  export type SystemConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SystemConfigs.
+     */
+    data: SystemConfigCreateManyInput | SystemConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemConfig update
+   */
+  export type SystemConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SystemConfig.
+     */
+    data: XOR<SystemConfigUpdateInput, SystemConfigUncheckedUpdateInput>
+    /**
+     * Choose, which SystemConfig to update.
+     */
+    where: SystemConfigWhereUniqueInput
+  }
+
+  /**
+   * SystemConfig updateMany
+   */
+  export type SystemConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemConfigs.
+     */
+    data: XOR<SystemConfigUpdateManyMutationInput, SystemConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemConfigs to update
+     */
+    where?: SystemConfigWhereInput
+  }
+
+  /**
+   * SystemConfig upsert
+   */
+  export type SystemConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SystemConfig to update in case it exists.
+     */
+    where: SystemConfigWhereUniqueInput
+    /**
+     * In case the SystemConfig found by the `where` argument doesn't exist, create a new SystemConfig with this data.
+     */
+    create: XOR<SystemConfigCreateInput, SystemConfigUncheckedCreateInput>
+    /**
+     * In case the SystemConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemConfigUpdateInput, SystemConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemConfig delete
+   */
+  export type SystemConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+    /**
+     * Filter which SystemConfig to delete.
+     */
+    where: SystemConfigWhereUniqueInput
+  }
+
+  /**
+   * SystemConfig deleteMany
+   */
+  export type SystemConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemConfigs to delete
+     */
+    where?: SystemConfigWhereInput
+  }
+
+  /**
+   * SystemConfig without action
+   */
+  export type SystemConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemConfig
+     */
+    select?: SystemConfigSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserNotificationPreferences
+   */
+
+  export type AggregateUserNotificationPreferences = {
+    _count: UserNotificationPreferencesCountAggregateOutputType | null
+    _min: UserNotificationPreferencesMinAggregateOutputType | null
+    _max: UserNotificationPreferencesMaxAggregateOutputType | null
+  }
+
+  export type UserNotificationPreferencesMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    emailEnabled: boolean | null
+    smsEnabled: boolean | null
+    inAppEnabled: boolean | null
+    pushEnabled: boolean | null
+    updatedAt: Date | null
+  }
+
+  export type UserNotificationPreferencesMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    emailEnabled: boolean | null
+    smsEnabled: boolean | null
+    inAppEnabled: boolean | null
+    pushEnabled: boolean | null
+    updatedAt: Date | null
+  }
+
+  export type UserNotificationPreferencesCountAggregateOutputType = {
+    id: number
+    userId: number
+    emailEnabled: number
+    smsEnabled: number
+    inAppEnabled: number
+    pushEnabled: number
+    eventPrefs: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserNotificationPreferencesMinAggregateInputType = {
+    id?: true
+    userId?: true
+    emailEnabled?: true
+    smsEnabled?: true
+    inAppEnabled?: true
+    pushEnabled?: true
+    updatedAt?: true
+  }
+
+  export type UserNotificationPreferencesMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    emailEnabled?: true
+    smsEnabled?: true
+    inAppEnabled?: true
+    pushEnabled?: true
+    updatedAt?: true
+  }
+
+  export type UserNotificationPreferencesCountAggregateInputType = {
+    id?: true
+    userId?: true
+    emailEnabled?: true
+    smsEnabled?: true
+    inAppEnabled?: true
+    pushEnabled?: true
+    eventPrefs?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserNotificationPreferencesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserNotificationPreferences to aggregate.
+     */
+    where?: UserNotificationPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserNotificationPreferences to fetch.
+     */
+    orderBy?: UserNotificationPreferencesOrderByWithRelationInput | UserNotificationPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserNotificationPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserNotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserNotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserNotificationPreferences
+    **/
+    _count?: true | UserNotificationPreferencesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserNotificationPreferencesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserNotificationPreferencesMaxAggregateInputType
+  }
+
+  export type GetUserNotificationPreferencesAggregateType<T extends UserNotificationPreferencesAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserNotificationPreferences]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserNotificationPreferences[P]>
+      : GetScalarType<T[P], AggregateUserNotificationPreferences[P]>
+  }
+
+
+
+
+  export type UserNotificationPreferencesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserNotificationPreferencesWhereInput
+    orderBy?: UserNotificationPreferencesOrderByWithAggregationInput | UserNotificationPreferencesOrderByWithAggregationInput[]
+    by: UserNotificationPreferencesScalarFieldEnum[] | UserNotificationPreferencesScalarFieldEnum
+    having?: UserNotificationPreferencesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserNotificationPreferencesCountAggregateInputType | true
+    _min?: UserNotificationPreferencesMinAggregateInputType
+    _max?: UserNotificationPreferencesMaxAggregateInputType
+  }
+
+  export type UserNotificationPreferencesGroupByOutputType = {
+    id: string
+    userId: string
+    emailEnabled: boolean
+    smsEnabled: boolean
+    inAppEnabled: boolean
+    pushEnabled: boolean
+    eventPrefs: JsonValue | null
+    updatedAt: Date
+    _count: UserNotificationPreferencesCountAggregateOutputType | null
+    _min: UserNotificationPreferencesMinAggregateOutputType | null
+    _max: UserNotificationPreferencesMaxAggregateOutputType | null
+  }
+
+  type GetUserNotificationPreferencesGroupByPayload<T extends UserNotificationPreferencesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserNotificationPreferencesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserNotificationPreferencesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserNotificationPreferencesGroupByOutputType[P]>
+            : GetScalarType<T[P], UserNotificationPreferencesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserNotificationPreferencesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userNotificationPreferences"]>
+
+  export type UserNotificationPreferencesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userNotificationPreferences"]>
+
+  export type UserNotificationPreferencesSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserNotificationPreferencesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserNotificationPreferencesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserNotificationPreferencesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserNotificationPreferences"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      emailEnabled: boolean
+      smsEnabled: boolean
+      inAppEnabled: boolean
+      pushEnabled: boolean
+      eventPrefs: Prisma.JsonValue | null
+      updatedAt: Date
+    }, ExtArgs["result"]["userNotificationPreferences"]>
+    composites: {}
+  }
+
+  type UserNotificationPreferencesGetPayload<S extends boolean | null | undefined | UserNotificationPreferencesDefaultArgs> = $Result.GetResult<Prisma.$UserNotificationPreferencesPayload, S>
+
+  type UserNotificationPreferencesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserNotificationPreferencesFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserNotificationPreferencesCountAggregateInputType | true
+    }
+
+  export interface UserNotificationPreferencesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserNotificationPreferences'], meta: { name: 'UserNotificationPreferences' } }
+    /**
+     * Find zero or one UserNotificationPreferences that matches the filter.
+     * @param {UserNotificationPreferencesFindUniqueArgs} args - Arguments to find a UserNotificationPreferences
+     * @example
+     * // Get one UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserNotificationPreferencesFindUniqueArgs>(args: SelectSubset<T, UserNotificationPreferencesFindUniqueArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one UserNotificationPreferences that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {UserNotificationPreferencesFindUniqueOrThrowArgs} args - Arguments to find a UserNotificationPreferences
+     * @example
+     * // Get one UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserNotificationPreferencesFindUniqueOrThrowArgs>(args: SelectSubset<T, UserNotificationPreferencesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first UserNotificationPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesFindFirstArgs} args - Arguments to find a UserNotificationPreferences
+     * @example
+     * // Get one UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserNotificationPreferencesFindFirstArgs>(args?: SelectSubset<T, UserNotificationPreferencesFindFirstArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first UserNotificationPreferences that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesFindFirstOrThrowArgs} args - Arguments to find a UserNotificationPreferences
+     * @example
+     * // Get one UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserNotificationPreferencesFindFirstOrThrowArgs>(args?: SelectSubset<T, UserNotificationPreferencesFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more UserNotificationPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findMany()
+     * 
+     * // Get first 10 UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userNotificationPreferencesWithIdOnly = await prisma.userNotificationPreferences.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserNotificationPreferencesFindManyArgs>(args?: SelectSubset<T, UserNotificationPreferencesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a UserNotificationPreferences.
+     * @param {UserNotificationPreferencesCreateArgs} args - Arguments to create a UserNotificationPreferences.
+     * @example
+     * // Create one UserNotificationPreferences
+     * const UserNotificationPreferences = await prisma.userNotificationPreferences.create({
+     *   data: {
+     *     // ... data to create a UserNotificationPreferences
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserNotificationPreferencesCreateArgs>(args: SelectSubset<T, UserNotificationPreferencesCreateArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many UserNotificationPreferences.
+     * @param {UserNotificationPreferencesCreateManyArgs} args - Arguments to create many UserNotificationPreferences.
+     * @example
+     * // Create many UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserNotificationPreferencesCreateManyArgs>(args?: SelectSubset<T, UserNotificationPreferencesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserNotificationPreferences and returns the data saved in the database.
+     * @param {UserNotificationPreferencesCreateManyAndReturnArgs} args - Arguments to create many UserNotificationPreferences.
+     * @example
+     * // Create many UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserNotificationPreferences and only return the `id`
+     * const userNotificationPreferencesWithIdOnly = await prisma.userNotificationPreferences.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserNotificationPreferencesCreateManyAndReturnArgs>(args?: SelectSubset<T, UserNotificationPreferencesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a UserNotificationPreferences.
+     * @param {UserNotificationPreferencesDeleteArgs} args - Arguments to delete one UserNotificationPreferences.
+     * @example
+     * // Delete one UserNotificationPreferences
+     * const UserNotificationPreferences = await prisma.userNotificationPreferences.delete({
+     *   where: {
+     *     // ... filter to delete one UserNotificationPreferences
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserNotificationPreferencesDeleteArgs>(args: SelectSubset<T, UserNotificationPreferencesDeleteArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one UserNotificationPreferences.
+     * @param {UserNotificationPreferencesUpdateArgs} args - Arguments to update one UserNotificationPreferences.
+     * @example
+     * // Update one UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserNotificationPreferencesUpdateArgs>(args: SelectSubset<T, UserNotificationPreferencesUpdateArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more UserNotificationPreferences.
+     * @param {UserNotificationPreferencesDeleteManyArgs} args - Arguments to filter UserNotificationPreferences to delete.
+     * @example
+     * // Delete a few UserNotificationPreferences
+     * const { count } = await prisma.userNotificationPreferences.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserNotificationPreferencesDeleteManyArgs>(args?: SelectSubset<T, UserNotificationPreferencesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserNotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserNotificationPreferencesUpdateManyArgs>(args: SelectSubset<T, UserNotificationPreferencesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserNotificationPreferences.
+     * @param {UserNotificationPreferencesUpsertArgs} args - Arguments to update or create a UserNotificationPreferences.
+     * @example
+     * // Update or create a UserNotificationPreferences
+     * const userNotificationPreferences = await prisma.userNotificationPreferences.upsert({
+     *   create: {
+     *     // ... data to create a UserNotificationPreferences
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserNotificationPreferences we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserNotificationPreferencesUpsertArgs>(args: SelectSubset<T, UserNotificationPreferencesUpsertArgs<ExtArgs>>): Prisma__UserNotificationPreferencesClient<$Result.GetResult<Prisma.$UserNotificationPreferencesPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of UserNotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesCountArgs} args - Arguments to filter UserNotificationPreferences to count.
+     * @example
+     * // Count the number of UserNotificationPreferences
+     * const count = await prisma.userNotificationPreferences.count({
+     *   where: {
+     *     // ... the filter for the UserNotificationPreferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserNotificationPreferencesCountArgs>(
+      args?: Subset<T, UserNotificationPreferencesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserNotificationPreferencesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserNotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserNotificationPreferencesAggregateArgs>(args: Subset<T, UserNotificationPreferencesAggregateArgs>): Prisma.PrismaPromise<GetUserNotificationPreferencesAggregateType<T>>
+
+    /**
+     * Group by UserNotificationPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserNotificationPreferencesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserNotificationPreferencesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserNotificationPreferencesGroupByArgs['orderBy'] }
+        : { orderBy?: UserNotificationPreferencesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserNotificationPreferencesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserNotificationPreferencesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserNotificationPreferences model
+   */
+  readonly fields: UserNotificationPreferencesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserNotificationPreferences.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserNotificationPreferencesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserNotificationPreferences model
+   */ 
+  interface UserNotificationPreferencesFieldRefs {
+    readonly id: FieldRef<"UserNotificationPreferences", 'String'>
+    readonly userId: FieldRef<"UserNotificationPreferences", 'String'>
+    readonly emailEnabled: FieldRef<"UserNotificationPreferences", 'Boolean'>
+    readonly smsEnabled: FieldRef<"UserNotificationPreferences", 'Boolean'>
+    readonly inAppEnabled: FieldRef<"UserNotificationPreferences", 'Boolean'>
+    readonly pushEnabled: FieldRef<"UserNotificationPreferences", 'Boolean'>
+    readonly eventPrefs: FieldRef<"UserNotificationPreferences", 'Json'>
+    readonly updatedAt: FieldRef<"UserNotificationPreferences", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserNotificationPreferences findUnique
+   */
+  export type UserNotificationPreferencesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserNotificationPreferences to fetch.
+     */
+    where: UserNotificationPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserNotificationPreferences findUniqueOrThrow
+   */
+  export type UserNotificationPreferencesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserNotificationPreferences to fetch.
+     */
+    where: UserNotificationPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserNotificationPreferences findFirst
+   */
+  export type UserNotificationPreferencesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserNotificationPreferences to fetch.
+     */
+    where?: UserNotificationPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserNotificationPreferences to fetch.
+     */
+    orderBy?: UserNotificationPreferencesOrderByWithRelationInput | UserNotificationPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserNotificationPreferences.
+     */
+    cursor?: UserNotificationPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserNotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserNotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserNotificationPreferences.
+     */
+    distinct?: UserNotificationPreferencesScalarFieldEnum | UserNotificationPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserNotificationPreferences findFirstOrThrow
+   */
+  export type UserNotificationPreferencesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserNotificationPreferences to fetch.
+     */
+    where?: UserNotificationPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserNotificationPreferences to fetch.
+     */
+    orderBy?: UserNotificationPreferencesOrderByWithRelationInput | UserNotificationPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserNotificationPreferences.
+     */
+    cursor?: UserNotificationPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserNotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserNotificationPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserNotificationPreferences.
+     */
+    distinct?: UserNotificationPreferencesScalarFieldEnum | UserNotificationPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserNotificationPreferences findMany
+   */
+  export type UserNotificationPreferencesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserNotificationPreferences to fetch.
+     */
+    where?: UserNotificationPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserNotificationPreferences to fetch.
+     */
+    orderBy?: UserNotificationPreferencesOrderByWithRelationInput | UserNotificationPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserNotificationPreferences.
+     */
+    cursor?: UserNotificationPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserNotificationPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserNotificationPreferences.
+     */
+    skip?: number
+    distinct?: UserNotificationPreferencesScalarFieldEnum | UserNotificationPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserNotificationPreferences create
+   */
+  export type UserNotificationPreferencesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserNotificationPreferences.
+     */
+    data: XOR<UserNotificationPreferencesCreateInput, UserNotificationPreferencesUncheckedCreateInput>
+  }
+
+  /**
+   * UserNotificationPreferences createMany
+   */
+  export type UserNotificationPreferencesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserNotificationPreferences.
+     */
+    data: UserNotificationPreferencesCreateManyInput | UserNotificationPreferencesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserNotificationPreferences createManyAndReturn
+   */
+  export type UserNotificationPreferencesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many UserNotificationPreferences.
+     */
+    data: UserNotificationPreferencesCreateManyInput | UserNotificationPreferencesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserNotificationPreferences update
+   */
+  export type UserNotificationPreferencesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserNotificationPreferences.
+     */
+    data: XOR<UserNotificationPreferencesUpdateInput, UserNotificationPreferencesUncheckedUpdateInput>
+    /**
+     * Choose, which UserNotificationPreferences to update.
+     */
+    where: UserNotificationPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserNotificationPreferences updateMany
+   */
+  export type UserNotificationPreferencesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserNotificationPreferences.
+     */
+    data: XOR<UserNotificationPreferencesUpdateManyMutationInput, UserNotificationPreferencesUncheckedUpdateManyInput>
+    /**
+     * Filter which UserNotificationPreferences to update
+     */
+    where?: UserNotificationPreferencesWhereInput
+  }
+
+  /**
+   * UserNotificationPreferences upsert
+   */
+  export type UserNotificationPreferencesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserNotificationPreferences to update in case it exists.
+     */
+    where: UserNotificationPreferencesWhereUniqueInput
+    /**
+     * In case the UserNotificationPreferences found by the `where` argument doesn't exist, create a new UserNotificationPreferences with this data.
+     */
+    create: XOR<UserNotificationPreferencesCreateInput, UserNotificationPreferencesUncheckedCreateInput>
+    /**
+     * In case the UserNotificationPreferences was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserNotificationPreferencesUpdateInput, UserNotificationPreferencesUncheckedUpdateInput>
+  }
+
+  /**
+   * UserNotificationPreferences delete
+   */
+  export type UserNotificationPreferencesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter which UserNotificationPreferences to delete.
+     */
+    where: UserNotificationPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserNotificationPreferences deleteMany
+   */
+  export type UserNotificationPreferencesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserNotificationPreferences to delete
+     */
+    where?: UserNotificationPreferencesWhereInput
+  }
+
+  /**
+   * UserNotificationPreferences without action
+   */
+  export type UserNotificationPreferencesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserNotificationPreferences
+     */
+    select?: UserNotificationPreferencesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserNotificationPreferencesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14819,6 +16865,32 @@ export namespace Prisma {
   };
 
   export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+  export const SystemConfigScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    value: 'value',
+    isSecret: 'isSecret',
+    description: 'description',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SystemConfigScalarFieldEnum = (typeof SystemConfigScalarFieldEnum)[keyof typeof SystemConfigScalarFieldEnum]
+
+
+  export const UserNotificationPreferencesScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    emailEnabled: 'emailEnabled',
+    smsEnabled: 'smsEnabled',
+    inAppEnabled: 'inAppEnabled',
+    pushEnabled: 'pushEnabled',
+    eventPrefs: 'eventPrefs',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserNotificationPreferencesScalarFieldEnum = (typeof UserNotificationPreferencesScalarFieldEnum)[keyof typeof UserNotificationPreferencesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15906,6 +17978,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     venue?: XOR<VenueNullableRelationFilter, VenueWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
+    notificationPrefs?: XOR<UserNotificationPreferencesNullableRelationFilter, UserNotificationPreferencesWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15921,6 +17994,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     venue?: VenueOrderByWithRelationInput
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
+    notificationPrefs?: UserNotificationPreferencesOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15939,6 +18013,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     venue?: XOR<VenueNullableRelationFilter, VenueWhereInput> | null
     refreshTokens?: RefreshTokenListRelationFilter
+    notificationPrefs?: XOR<UserNotificationPreferencesNullableRelationFilter, UserNotificationPreferencesWhereInput> | null
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -16026,6 +18101,133 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"RefreshToken"> | Date | string
     userId?: StringWithAggregatesFilter<"RefreshToken"> | string
+  }
+
+  export type SystemConfigWhereInput = {
+    AND?: SystemConfigWhereInput | SystemConfigWhereInput[]
+    OR?: SystemConfigWhereInput[]
+    NOT?: SystemConfigWhereInput | SystemConfigWhereInput[]
+    id?: StringFilter<"SystemConfig"> | string
+    key?: StringFilter<"SystemConfig"> | string
+    value?: StringFilter<"SystemConfig"> | string
+    isSecret?: BoolFilter<"SystemConfig"> | boolean
+    description?: StringNullableFilter<"SystemConfig"> | string | null
+    updatedAt?: DateTimeFilter<"SystemConfig"> | Date | string
+  }
+
+  export type SystemConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    isSecret?: SortOrder
+    description?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    key?: string
+    AND?: SystemConfigWhereInput | SystemConfigWhereInput[]
+    OR?: SystemConfigWhereInput[]
+    NOT?: SystemConfigWhereInput | SystemConfigWhereInput[]
+    value?: StringFilter<"SystemConfig"> | string
+    isSecret?: BoolFilter<"SystemConfig"> | boolean
+    description?: StringNullableFilter<"SystemConfig"> | string | null
+    updatedAt?: DateTimeFilter<"SystemConfig"> | Date | string
+  }, "id" | "key">
+
+  export type SystemConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    isSecret?: SortOrder
+    description?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: SystemConfigCountOrderByAggregateInput
+    _max?: SystemConfigMaxOrderByAggregateInput
+    _min?: SystemConfigMinOrderByAggregateInput
+  }
+
+  export type SystemConfigScalarWhereWithAggregatesInput = {
+    AND?: SystemConfigScalarWhereWithAggregatesInput | SystemConfigScalarWhereWithAggregatesInput[]
+    OR?: SystemConfigScalarWhereWithAggregatesInput[]
+    NOT?: SystemConfigScalarWhereWithAggregatesInput | SystemConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SystemConfig"> | string
+    key?: StringWithAggregatesFilter<"SystemConfig"> | string
+    value?: StringWithAggregatesFilter<"SystemConfig"> | string
+    isSecret?: BoolWithAggregatesFilter<"SystemConfig"> | boolean
+    description?: StringNullableWithAggregatesFilter<"SystemConfig"> | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"SystemConfig"> | Date | string
+  }
+
+  export type UserNotificationPreferencesWhereInput = {
+    AND?: UserNotificationPreferencesWhereInput | UserNotificationPreferencesWhereInput[]
+    OR?: UserNotificationPreferencesWhereInput[]
+    NOT?: UserNotificationPreferencesWhereInput | UserNotificationPreferencesWhereInput[]
+    id?: StringFilter<"UserNotificationPreferences"> | string
+    userId?: StringFilter<"UserNotificationPreferences"> | string
+    emailEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    smsEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    inAppEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    pushEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    eventPrefs?: JsonNullableFilter<"UserNotificationPreferences">
+    updatedAt?: DateTimeFilter<"UserNotificationPreferences"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type UserNotificationPreferencesOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailEnabled?: SortOrder
+    smsEnabled?: SortOrder
+    inAppEnabled?: SortOrder
+    pushEnabled?: SortOrder
+    eventPrefs?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserNotificationPreferencesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: UserNotificationPreferencesWhereInput | UserNotificationPreferencesWhereInput[]
+    OR?: UserNotificationPreferencesWhereInput[]
+    NOT?: UserNotificationPreferencesWhereInput | UserNotificationPreferencesWhereInput[]
+    emailEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    smsEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    inAppEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    pushEnabled?: BoolFilter<"UserNotificationPreferences"> | boolean
+    eventPrefs?: JsonNullableFilter<"UserNotificationPreferences">
+    updatedAt?: DateTimeFilter<"UserNotificationPreferences"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type UserNotificationPreferencesOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailEnabled?: SortOrder
+    smsEnabled?: SortOrder
+    inAppEnabled?: SortOrder
+    pushEnabled?: SortOrder
+    eventPrefs?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    _count?: UserNotificationPreferencesCountOrderByAggregateInput
+    _max?: UserNotificationPreferencesMaxOrderByAggregateInput
+    _min?: UserNotificationPreferencesMinOrderByAggregateInput
+  }
+
+  export type UserNotificationPreferencesScalarWhereWithAggregatesInput = {
+    AND?: UserNotificationPreferencesScalarWhereWithAggregatesInput | UserNotificationPreferencesScalarWhereWithAggregatesInput[]
+    OR?: UserNotificationPreferencesScalarWhereWithAggregatesInput[]
+    NOT?: UserNotificationPreferencesScalarWhereWithAggregatesInput | UserNotificationPreferencesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserNotificationPreferences"> | string
+    userId?: StringWithAggregatesFilter<"UserNotificationPreferences"> | string
+    emailEnabled?: BoolWithAggregatesFilter<"UserNotificationPreferences"> | boolean
+    smsEnabled?: BoolWithAggregatesFilter<"UserNotificationPreferences"> | boolean
+    inAppEnabled?: BoolWithAggregatesFilter<"UserNotificationPreferences"> | boolean
+    pushEnabled?: BoolWithAggregatesFilter<"UserNotificationPreferences"> | boolean
+    eventPrefs?: JsonNullableWithAggregatesFilter<"UserNotificationPreferences">
+    updatedAt?: DateTimeWithAggregatesFilter<"UserNotificationPreferences"> | Date | string
   }
 
   export type VenueCreateInput = {
@@ -16955,6 +19157,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     venue?: VenueCreateNestedOneWithoutUsersInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    notificationPrefs?: UserNotificationPreferencesCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16969,6 +19172,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    notificationPrefs?: UserNotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -16983,6 +19187,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneWithoutUsersNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    notificationPrefs?: UserNotificationPreferencesUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16997,6 +19202,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    notificationPrefs?: UserNotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -17090,6 +19296,145 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemConfigCreateInput = {
+    id?: string
+    key: string
+    value: string
+    isSecret?: boolean
+    description?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type SystemConfigUncheckedCreateInput = {
+    id?: string
+    key: string
+    value: string
+    isSecret?: boolean
+    description?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type SystemConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    isSecret?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    isSecret?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemConfigCreateManyInput = {
+    id?: string
+    key: string
+    value: string
+    isSecret?: boolean
+    description?: string | null
+    updatedAt?: Date | string
+  }
+
+  export type SystemConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    isSecret?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    isSecret?: BoolFieldUpdateOperationsInput | boolean
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserNotificationPreferencesCreateInput = {
+    id?: string
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationPrefsInput
+  }
+
+  export type UserNotificationPreferencesUncheckedCreateInput = {
+    id?: string
+    userId: string
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type UserNotificationPreferencesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationPrefsNestedInput
+  }
+
+  export type UserNotificationPreferencesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserNotificationPreferencesCreateManyInput = {
+    id?: string
+    userId: string
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type UserNotificationPreferencesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserNotificationPreferencesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -18105,6 +20450,11 @@ export namespace Prisma {
     none?: RefreshTokenWhereInput
   }
 
+  export type UserNotificationPreferencesNullableRelationFilter = {
+    is?: UserNotificationPreferencesWhereInput | null
+    isNot?: UserNotificationPreferencesWhereInput | null
+  }
+
   export type RefreshTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -18175,6 +20525,64 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
+  }
+
+  export type SystemConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    isSecret?: SortOrder
+    description?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    isSecret?: SortOrder
+    description?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    isSecret?: SortOrder
+    description?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserNotificationPreferencesCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailEnabled?: SortOrder
+    smsEnabled?: SortOrder
+    inAppEnabled?: SortOrder
+    pushEnabled?: SortOrder
+    eventPrefs?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserNotificationPreferencesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailEnabled?: SortOrder
+    smsEnabled?: SortOrder
+    inAppEnabled?: SortOrder
+    pushEnabled?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserNotificationPreferencesMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    emailEnabled?: SortOrder
+    smsEnabled?: SortOrder
+    inAppEnabled?: SortOrder
+    pushEnabled?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StationCreateNestedManyWithoutVenueInput = {
@@ -18986,11 +21394,23 @@ export namespace Prisma {
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
+  export type UserNotificationPreferencesCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserNotificationPreferencesCreateOrConnectWithoutUserInput
+    connect?: UserNotificationPreferencesWhereUniqueInput
+  }
+
   export type RefreshTokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
     createMany?: RefreshTokenCreateManyUserInputEnvelope
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
+  }
+
+  export type UserNotificationPreferencesUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserNotificationPreferencesCreateOrConnectWithoutUserInput
+    connect?: UserNotificationPreferencesWhereUniqueInput
   }
 
   export type VenueUpdateOneWithoutUsersNestedInput = {
@@ -19017,6 +21437,16 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
+  export type UserNotificationPreferencesUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserNotificationPreferencesCreateOrConnectWithoutUserInput
+    upsert?: UserNotificationPreferencesUpsertWithoutUserInput
+    disconnect?: UserNotificationPreferencesWhereInput | boolean
+    delete?: UserNotificationPreferencesWhereInput | boolean
+    connect?: UserNotificationPreferencesWhereUniqueInput
+    update?: XOR<XOR<UserNotificationPreferencesUpdateToOneWithWhereWithoutUserInput, UserNotificationPreferencesUpdateWithoutUserInput>, UserNotificationPreferencesUncheckedUpdateWithoutUserInput>
+  }
+
   export type RefreshTokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<RefreshTokenCreateWithoutUserInput, RefreshTokenUncheckedCreateWithoutUserInput> | RefreshTokenCreateWithoutUserInput[] | RefreshTokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: RefreshTokenCreateOrConnectWithoutUserInput | RefreshTokenCreateOrConnectWithoutUserInput[]
@@ -19031,6 +21461,16 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
+  export type UserNotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserNotificationPreferencesCreateOrConnectWithoutUserInput
+    upsert?: UserNotificationPreferencesUpsertWithoutUserInput
+    disconnect?: UserNotificationPreferencesWhereInput | boolean
+    delete?: UserNotificationPreferencesWhereInput | boolean
+    connect?: UserNotificationPreferencesWhereUniqueInput
+    update?: XOR<XOR<UserNotificationPreferencesUpdateToOneWithWhereWithoutUserInput, UserNotificationPreferencesUpdateWithoutUserInput>, UserNotificationPreferencesUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserCreateNestedOneWithoutRefreshTokensInput = {
     create?: XOR<UserCreateWithoutRefreshTokensInput, UserUncheckedCreateWithoutRefreshTokensInput>
     connectOrCreate?: UserCreateOrConnectWithoutRefreshTokensInput
@@ -19043,6 +21483,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutRefreshTokensInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRefreshTokensInput, UserUpdateWithoutRefreshTokensInput>, UserUncheckedUpdateWithoutRefreshTokensInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationPrefsInput = {
+    create?: XOR<UserCreateWithoutNotificationPrefsInput, UserUncheckedCreateWithoutNotificationPrefsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationPrefsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationPrefsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationPrefsInput, UserUncheckedCreateWithoutNotificationPrefsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationPrefsInput
+    upsert?: UserUpsertWithoutNotificationPrefsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationPrefsInput, UserUpdateWithoutNotificationPrefsInput>, UserUncheckedUpdateWithoutNotificationPrefsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -19606,6 +22060,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    notificationPrefs?: UserNotificationPreferencesCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVenueInput = {
@@ -19619,6 +22074,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    notificationPrefs?: UserNotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVenueInput = {
@@ -21337,6 +23793,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserNotificationPreferencesCreateWithoutUserInput = {
+    id?: string
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type UserNotificationPreferencesUncheckedCreateWithoutUserInput = {
+    id?: string
+    emailEnabled?: boolean
+    smsEnabled?: boolean
+    inAppEnabled?: boolean
+    pushEnabled?: boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type UserNotificationPreferencesCreateOrConnectWithoutUserInput = {
+    where: UserNotificationPreferencesWhereUniqueInput
+    create: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+  }
+
   export type VenueUpsertWithoutUsersInput = {
     update: XOR<VenueUpdateWithoutUsersInput, VenueUncheckedUpdateWithoutUsersInput>
     create: XOR<VenueCreateWithoutUsersInput, VenueUncheckedCreateWithoutUsersInput>
@@ -21413,6 +23894,37 @@ export namespace Prisma {
     userId?: StringFilter<"RefreshToken"> | string
   }
 
+  export type UserNotificationPreferencesUpsertWithoutUserInput = {
+    update: XOR<UserNotificationPreferencesUpdateWithoutUserInput, UserNotificationPreferencesUncheckedUpdateWithoutUserInput>
+    create: XOR<UserNotificationPreferencesCreateWithoutUserInput, UserNotificationPreferencesUncheckedCreateWithoutUserInput>
+    where?: UserNotificationPreferencesWhereInput
+  }
+
+  export type UserNotificationPreferencesUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserNotificationPreferencesWhereInput
+    data: XOR<UserNotificationPreferencesUpdateWithoutUserInput, UserNotificationPreferencesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserNotificationPreferencesUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserNotificationPreferencesUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    emailEnabled?: BoolFieldUpdateOperationsInput | boolean
+    smsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    inAppEnabled?: BoolFieldUpdateOperationsInput | boolean
+    pushEnabled?: BoolFieldUpdateOperationsInput | boolean
+    eventPrefs?: NullableJsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutRefreshTokensInput = {
     id?: string
     email: string
@@ -21424,6 +23936,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     venue?: VenueCreateNestedOneWithoutUsersInput
+    notificationPrefs?: UserNotificationPreferencesCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -21437,6 +23950,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    notificationPrefs?: UserNotificationPreferencesUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -21466,6 +23980,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     venue?: VenueUpdateOneWithoutUsersNestedInput
+    notificationPrefs?: UserNotificationPreferencesUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -21479,6 +23994,79 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationPrefs?: UserNotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationPrefsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    venue?: VenueCreateNestedOneWithoutUsersInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationPrefsInput = {
+    id?: string
+    venueId?: string | null
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationPrefsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationPrefsInput, UserUncheckedCreateWithoutNotificationPrefsInput>
+  }
+
+  export type UserUpsertWithoutNotificationPrefsInput = {
+    update: XOR<UserUpdateWithoutNotificationPrefsInput, UserUncheckedUpdateWithoutNotificationPrefsInput>
+    create: XOR<UserCreateWithoutNotificationPrefsInput, UserUncheckedCreateWithoutNotificationPrefsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationPrefsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationPrefsInput, UserUncheckedUpdateWithoutNotificationPrefsInput>
+  }
+
+  export type UserUpdateWithoutNotificationPrefsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    venue?: VenueUpdateOneWithoutUsersNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationPrefsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    venueId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type StationCreateManyVenueInput = {
@@ -21733,6 +24321,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    notificationPrefs?: UserNotificationPreferencesUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVenueInput = {
@@ -21746,6 +24335,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    notificationPrefs?: UserNotificationPreferencesUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutVenueInput = {
@@ -22268,6 +24858,14 @@ export namespace Prisma {
      * @deprecated Use RefreshTokenDefaultArgs instead
      */
     export type RefreshTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RefreshTokenDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SystemConfigDefaultArgs instead
+     */
+    export type SystemConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SystemConfigDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserNotificationPreferencesDefaultArgs instead
+     */
+    export type UserNotificationPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserNotificationPreferencesDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

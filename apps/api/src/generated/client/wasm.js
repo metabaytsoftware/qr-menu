@@ -268,6 +268,26 @@ exports.Prisma.RefreshTokenScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.SystemConfigScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  isSecret: 'isSecret',
+  description: 'description',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserNotificationPreferencesScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  emailEnabled: 'emailEnabled',
+  smsEnabled: 'smsEnabled',
+  inAppEnabled: 'inAppEnabled',
+  pushEnabled: 'pushEnabled',
+  eventPrefs: 'eventPrefs',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -354,7 +374,9 @@ exports.Prisma.ModelName = {
   Payment: 'Payment',
   RolePermission: 'RolePermission',
   User: 'User',
-  RefreshToken: 'RefreshToken'
+  RefreshToken: 'RefreshToken',
+  SystemConfig: 'SystemConfig',
+  UserNotificationPreferences: 'UserNotificationPreferences'
 };
 
 /**

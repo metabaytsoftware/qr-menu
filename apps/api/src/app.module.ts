@@ -20,6 +20,8 @@ import { HealthModule } from './health/health.module';
 import { VenuesModule } from './venues/venues.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { UsersModule } from './users/users.module';
+import { SystemConfigModule } from './config/system-config.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { UsersModule } from './users/users.module';
     VenuesModule,
     PermissionsModule,
     UsersModule,
+    SystemConfigModule,
+    NotificationsModule,
   ],
   controllers: [],
   providers: [
