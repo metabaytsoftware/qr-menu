@@ -117,7 +117,7 @@ function SessionCard({
 
   const handlePay = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!bill) return;
+    if (!bill || !session) return;
     setPayError("");
     try {
       const orders = await fetchOrders(venueId);
