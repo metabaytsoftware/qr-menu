@@ -208,6 +208,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   sessionId: 'sessionId',
   status: 'status',
   isBillLess: 'isBillLess',
+  isOffRecord: 'isOffRecord',
   subtotal: 'subtotal',
   taxRate: 'taxRate',
   taxAmount: 'taxAmount',

@@ -8805,6 +8805,7 @@ export namespace Prisma {
     sessionId: string | null
     status: $Enums.OrderStatus | null
     isBillLess: boolean | null
+    isOffRecord: boolean | null
     subtotal: Decimal | null
     taxRate: Decimal | null
     taxAmount: Decimal | null
@@ -8824,6 +8825,7 @@ export namespace Prisma {
     sessionId: string | null
     status: $Enums.OrderStatus | null
     isBillLess: boolean | null
+    isOffRecord: boolean | null
     subtotal: Decimal | null
     taxRate: Decimal | null
     taxAmount: Decimal | null
@@ -8843,6 +8845,7 @@ export namespace Prisma {
     sessionId: number
     status: number
     isBillLess: number
+    isOffRecord: number
     subtotal: number
     taxRate: number
     taxAmount: number
@@ -8882,6 +8885,7 @@ export namespace Prisma {
     sessionId?: true
     status?: true
     isBillLess?: true
+    isOffRecord?: true
     subtotal?: true
     taxRate?: true
     taxAmount?: true
@@ -8901,6 +8905,7 @@ export namespace Prisma {
     sessionId?: true
     status?: true
     isBillLess?: true
+    isOffRecord?: true
     subtotal?: true
     taxRate?: true
     taxAmount?: true
@@ -8920,6 +8925,7 @@ export namespace Prisma {
     sessionId?: true
     status?: true
     isBillLess?: true
+    isOffRecord?: true
     subtotal?: true
     taxRate?: true
     taxAmount?: true
@@ -9026,6 +9032,7 @@ export namespace Prisma {
     sessionId: string | null
     status: $Enums.OrderStatus
     isBillLess: boolean
+    isOffRecord: boolean
     subtotal: Decimal
     taxRate: Decimal
     taxAmount: Decimal
@@ -9064,6 +9071,7 @@ export namespace Prisma {
     sessionId?: boolean
     status?: boolean
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: boolean
     taxRate?: boolean
     taxAmount?: boolean
@@ -9089,6 +9097,7 @@ export namespace Prisma {
     sessionId?: boolean
     status?: boolean
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: boolean
     taxRate?: boolean
     taxAmount?: boolean
@@ -9111,6 +9120,7 @@ export namespace Prisma {
     sessionId?: boolean
     status?: boolean
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: boolean
     taxRate?: boolean
     taxAmount?: boolean
@@ -9153,6 +9163,7 @@ export namespace Prisma {
       sessionId: string | null
       status: $Enums.OrderStatus
       isBillLess: boolean
+      isOffRecord: boolean
       subtotal: Prisma.Decimal
       taxRate: Prisma.Decimal
       taxAmount: Prisma.Decimal
@@ -9567,6 +9578,7 @@ export namespace Prisma {
     readonly sessionId: FieldRef<"Order", 'String'>
     readonly status: FieldRef<"Order", 'OrderStatus'>
     readonly isBillLess: FieldRef<"Order", 'Boolean'>
+    readonly isOffRecord: FieldRef<"Order", 'Boolean'>
     readonly subtotal: FieldRef<"Order", 'Decimal'>
     readonly taxRate: FieldRef<"Order", 'Decimal'>
     readonly taxAmount: FieldRef<"Order", 'Decimal'>
@@ -16804,6 +16816,7 @@ export namespace Prisma {
     sessionId: 'sessionId',
     status: 'status',
     isBillLess: 'isBillLess',
+    isOffRecord: 'isOffRecord',
     subtotal: 'subtotal',
     taxRate: 'taxRate',
     taxAmount: 'taxAmount',
@@ -17678,6 +17691,7 @@ export namespace Prisma {
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
+    isOffRecord?: BoolFilter<"Order"> | boolean
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -17702,6 +17716,7 @@ export namespace Prisma {
     sessionId?: SortOrderInput | SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
+    isOffRecord?: SortOrder
     subtotal?: SortOrder
     taxRate?: SortOrder
     taxAmount?: SortOrder
@@ -17729,6 +17744,7 @@ export namespace Prisma {
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
+    isOffRecord?: BoolFilter<"Order"> | boolean
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -17753,6 +17769,7 @@ export namespace Prisma {
     sessionId?: SortOrderInput | SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
+    isOffRecord?: SortOrder
     subtotal?: SortOrder
     taxRate?: SortOrder
     taxAmount?: SortOrder
@@ -17780,6 +17797,7 @@ export namespace Prisma {
     sessionId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     status?: EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolWithAggregatesFilter<"Order"> | boolean
+    isOffRecord?: BoolWithAggregatesFilter<"Order"> | boolean
     subtotal?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalWithAggregatesFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -18840,6 +18858,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -18864,6 +18883,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -18882,6 +18902,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18906,6 +18927,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18927,6 +18949,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -18943,6 +18966,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -18962,6 +18986,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -20218,6 +20243,7 @@ export namespace Prisma {
     sessionId?: SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
+    isOffRecord?: SortOrder
     subtotal?: SortOrder
     taxRate?: SortOrder
     taxAmount?: SortOrder
@@ -20246,6 +20272,7 @@ export namespace Prisma {
     sessionId?: SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
+    isOffRecord?: SortOrder
     subtotal?: SortOrder
     taxRate?: SortOrder
     taxAmount?: SortOrder
@@ -20265,6 +20292,7 @@ export namespace Prisma {
     sessionId?: SortOrder
     status?: SortOrder
     isBillLess?: SortOrder
+    isOffRecord?: SortOrder
     subtotal?: SortOrder
     taxRate?: SortOrder
     taxAmount?: SortOrder
@@ -22025,6 +22053,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -22047,6 +22076,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -22264,6 +22294,7 @@ export namespace Prisma {
     sessionId?: StringNullableFilter<"Order"> | string | null
     status?: EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
     isBillLess?: BoolFilter<"Order"> | boolean
+    isOffRecord?: BoolFilter<"Order"> | boolean
     subtotal?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFilter<"Order"> | Decimal | DecimalJsLike | number | string
@@ -22388,6 +22419,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -22410,6 +22442,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -22702,6 +22735,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -22724,6 +22758,7 @@ export namespace Prisma {
     stationId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -23492,6 +23527,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -23515,6 +23551,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -23579,6 +23616,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23602,6 +23640,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23656,6 +23695,7 @@ export namespace Prisma {
     id?: string
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -23679,6 +23719,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -23712,6 +23753,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -23735,6 +23777,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24130,6 +24173,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -24278,6 +24322,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24300,6 +24345,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24320,6 +24366,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24417,6 +24464,7 @@ export namespace Prisma {
     sessionId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -24447,6 +24495,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24469,6 +24518,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24489,6 +24539,7 @@ export namespace Prisma {
     sessionId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24551,6 +24602,7 @@ export namespace Prisma {
     stationId?: string | null
     status?: $Enums.OrderStatus
     isBillLess?: boolean
+    isOffRecord?: boolean
     subtotal?: Decimal | DecimalJsLike | number | string
     taxRate?: Decimal | DecimalJsLike | number | string
     taxAmount?: Decimal | DecimalJsLike | number | string
@@ -24567,6 +24619,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24589,6 +24642,7 @@ export namespace Prisma {
     stationId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -24609,6 +24663,7 @@ export namespace Prisma {
     stationId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     isBillLess?: BoolFieldUpdateOperationsInput | boolean
+    isOffRecord?: BoolFieldUpdateOperationsInput | boolean
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

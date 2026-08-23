@@ -4,6 +4,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig: NextConfig = {
   rewrites: async () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://192.168.1.116:3002";
+    console.log("👉 [Next.js Rewrite] NEXT_PUBLIC_API_URL:", process.env.NEXT_PUBLIC_API_URL, "-> Target URL:", apiUrl);
     return [
       {
         source: "/api/:path*",

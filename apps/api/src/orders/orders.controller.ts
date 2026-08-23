@@ -22,6 +22,12 @@ export class OrdersController {
     return this.ordersService.getByVenue(venueId, status);
   }
 
+  @Permission('orders', 'read')
+  @Get(':venueId/private')
+  getPrivateOrders(@Param('venueId') venueId: string) {
+    return this.ordersService.getPrivateOrders(venueId);
+  }
+
   @Permission('orders', 'update_status')
   @Patch(':id/status')
   updateStatus(@Param('id') id: string, @Body() dto: UpdateOrderStatusDto) {

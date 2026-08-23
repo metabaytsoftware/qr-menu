@@ -59,6 +59,7 @@ function SidebarSection({ title, isCollapsed }: { title: string; isCollapsed: bo
 }
 
 import { AuthProvider, useAuth } from "@/lib/useAuth";
+import PrivateSaleOverlay from "@/components/PrivateSaleOverlay";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -78,6 +79,7 @@ function AdminLayoutContent({
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState<boolean>(false);
   const [venueName, setVenueName] = useState<string>("Yükleniyor...");
+  const [isPrivateSaleOpen, setIsPrivateSaleOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("sidebar-collapsed");
@@ -85,6 +87,18 @@ function AdminLayoutContent({
       setIsSidebarCollapsed(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (!user || !['OWNER', 'MANAGER'].includes(user.role)) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+        e.preventDefault();
+        setIsPrivateSaleOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [user]);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed((prev) => {
@@ -129,6 +143,7 @@ function AdminLayoutContent({
 
   return (
     <AdminAuthGuard>
+      {isPrivateSaleOpen && <PrivateSaleOverlay onClose={() => setIsPrivateSaleOpen(false)} />}
       <div className="flex min-h-screen bg-zinc-950 text-white relative">
         {/* Mobile Backdrop Overlay */}
         {isMobileSidebarOpen && (

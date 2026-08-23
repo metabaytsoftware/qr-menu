@@ -12,12 +12,12 @@ export class AnalyticsService {
 
     const [todayOrders, activeSessions, allTimeTotals, todaySessions, allTimeSessions] = await Promise.all([
       this.prisma.order.findMany({
-        where: { venueId, createdAt: { gte: todayStart }, status: { not: 'CANCELLED' } },
+        where: { venueId, isOffRecord: false, createdAt: { gte: todayStart }, status: { not: 'CANCELLED' } },
         select: { totalAmount: true, status: true },
       }),
       this.prisma.session.count({ where: { station: { venueId }, status: 'ACTIVE' } }),
       this.prisma.order.aggregate({
-        where: { venueId, status: { not: 'CANCELLED' } },
+        where: { venueId, isOffRecord: false, status: { not: 'CANCELLED' } },
         _sum: { totalAmount: true },
         _count: true,
       }),
@@ -53,7 +53,7 @@ export class AnalyticsService {
 
     const [orders, sessions] = await Promise.all([
       this.prisma.order.findMany({
-        where: { venueId, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
+        where: { venueId, isOffRecord: false, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
         select: { totalAmount: true, createdAt: true },
       }),
       this.prisma.session.findMany({
@@ -92,7 +92,7 @@ export class AnalyticsService {
   async getTopProducts(venueId: string, limit: number = 10) {
     const items = await this.prisma.orderItem.groupBy({
       by: ['productId'],
-      where: { order: { venueId, status: { not: 'CANCELLED' } } },
+      where: { order: { venueId, isOffRecord: false, status: { not: 'CANCELLED' } } },
       _sum: { quantity: true, total: true },
       orderBy: { _sum: { quantity: 'desc' } },
       take: limit,
@@ -119,7 +119,7 @@ export class AnalyticsService {
       where: { venueId },
       include: {
         orders: {
-          where: { status: { not: 'CANCELLED' } },
+          where: { isOffRecord: false, status: { not: 'CANCELLED' } },
           select: { totalAmount: true },
         },
         sessions: {
@@ -164,7 +164,7 @@ export class AnalyticsService {
     since.setDate(since.getDate() - 30);
 
     const orders = await this.prisma.order.findMany({
-      where: { venueId, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
+      where: { venueId, isOffRecord: false, createdAt: { gte: since }, status: { not: 'CANCELLED' } },
       select: { createdAt: true, totalAmount: true },
     });
 
@@ -188,7 +188,7 @@ export class AnalyticsService {
   async getPaymentMethodDistribution(venueId: string) {
     const payments = await this.prisma.payment.groupBy({
       by: ['method'],
-      where: { order: { venueId } },
+      where: { order: { venueId, isOffRecord: false } },
       _sum: { amount: true },
       _count: true,
     });
@@ -204,7 +204,7 @@ export class AnalyticsService {
   async getCategoryBreakdown(venueId: string) {
     const items = await this.prisma.orderItem.groupBy({
       by: ['productId'],
-      where: { order: { venueId, status: { not: 'CANCELLED' } } },
+      where: { order: { venueId, isOffRecord: false, status: { not: 'CANCELLED' } } },
       _sum: { quantity: true, total: true },
     });
 

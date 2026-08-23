@@ -45,4 +45,8 @@ export class CreateOrderDto {
   @IsOptional()
   @IsString()
   public venueId?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  public isOffRecord?: boolean;
 }

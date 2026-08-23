@@ -58,6 +58,7 @@ export function placeOrder(payload: {
   sessionId?: string;
   taxRate?: number;
   serviceCharge?: number;
+  isOffRecord?: boolean;
 }): Promise<{ id: string }> {
   return apiCall(`${API_BASE}/orders`, { method: 'POST', ...json(payload) });
 }
@@ -68,6 +69,10 @@ export function fetchOrders(venueId: string, status?: string): Promise<Order[]> 
     ? `${API_BASE}/orders/${venueId}?status=${status}`
     : `${API_BASE}/orders/${venueId}`;
   return apiCall(url);
+}
+
+export function fetchPrivateOrders(venueId: string): Promise<Order[]> {
+  return apiCall(`${API_BASE}/orders/${venueId}/private`);
 }
 
 export function updateOrderStatus(orderId: string, status: string): Promise<Order> {

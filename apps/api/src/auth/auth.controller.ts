@@ -22,12 +22,14 @@ export class AuthController {
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
       maxAge: 15 * 60 * 1000,
+      path: '/',
     });
     res.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
     });
     return result.user;
   }
@@ -56,12 +58,14 @@ export class AuthController {
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
       maxAge: 15 * 60 * 1000,
+      path: '/',
     });
     res.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
     });
     return { ok: true };
   }

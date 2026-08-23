@@ -60,6 +60,7 @@ export class OrdersService {
         stationId: dto.stationId,
         sessionId: dto.sessionId ?? activeSession?.id,
         isBillLess: dto.isBillLess ?? false,
+        isOffRecord: dto.isOffRecord ?? false,
         notes: dto.notes,
         subtotal,
         taxRate,
@@ -90,7 +91,7 @@ export class OrdersService {
   }
 
   async getByVenue(venueId: string, status?: string) {
-    const where: any = { venueId };
+    const where: any = { venueId, isOffRecord: false };
     if (status && Object.values(OrderStatus).includes(status as OrderStatus)) {
       where.status = status;
     }
@@ -100,6 +101,17 @@ export class OrdersService {
       include: {
         items: { include: { product: true } },
         station: true,
+        payments: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async getPrivateOrders(venueId: string) {
+    return this.prisma.order.findMany({
+      where: { venueId, isOffRecord: true },
+      include: {
+        items: { include: { product: true } },
         payments: true,
       },
       orderBy: { createdAt: 'desc' },
